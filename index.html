@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kudryavtseva Art</title>
+    <title>Rulenkova Art</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -57,6 +57,7 @@
             letter-spacing: 4px;
             text-transform: uppercase;
             color: #2d3238;
+            text-decoration: none;
         }
 
         .nav {
@@ -172,8 +173,8 @@
             color: #5a5f66;
         }
 
-        /* ГАЛЕРЕЯ */
-        .gallery-section {
+        /* КАТАЛОГ */
+        .catalog-section {
             background-color: #ffffff;
             padding: 80px 0;
         }
@@ -532,6 +533,26 @@
             transform: translateX(-50%) translateY(0);
         }
 
+        /* ИНДИКАТОР ЗАГРУЗКИ */
+        .loader {
+            display: flex;
+            justify-content: center;
+            padding: 40px;
+        }
+
+        .loader-spinner {
+            width: 30px;
+            height: 30px;
+            border: 3px solid #e2e5ea;
+            border-top: 3px solid #2d3238;
+            border-radius: 50%;
+            animation: spin 0.7s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
         /* АДАПТИВ */
         @media (max-width: 768px) {
             .header {
@@ -612,7 +633,7 @@
 <body>
 
     <header class="header">
-        <div class="logo">Kudryavtseva</div>
+        <a href="#hero" class="logo">Rulenkova</a>
         <button class="burger" id="burger" onclick="toggleMenu()" aria-label="Меню">
             <span></span>
             <span></span>
@@ -620,7 +641,7 @@
         </button>
         <nav class="nav" id="nav">
             <a href="#hero" class="active">Главная</a>
-            <a href="#works">Работы</a>
+            <a href="#catalog">Каталог</a>
             <a href="#about">Об авторе</a>
             <a href="#contacts">Контакты</a>
         </nav>
@@ -628,8 +649,9 @@
 
     <section class="hero fade-in" id="hero"></section>
 
-    <section class="gallery-section" id="works">
-        <div class="section-title fade-in">Работы</div>
+    <!-- ========== КАТАЛОГ (ОТДЕЛЬНЫЙ РАЗДЕЛ) ========== -->
+    <section class="catalog-section" id="catalog">
+        <div class="section-title fade-in">Каталог</div>
         <div class="tabs fade-in" id="tabs-container"></div>
         <div id="gallery-container"></div>
     </section>
@@ -675,7 +697,7 @@
         const SITE_DATA = {
             artist: {
                 firstName: "Елена",
-                lastName: "Кудрявцева",
+                lastName: "Руленкова",
                 city: "[город]",
                 photo: "https://placehold.co/400x533/e2e5ea/9aa0a8?text=Елена",
                 story: [
@@ -735,22 +757,22 @@
                 ]
             },
             contacts: {
-                telegram: "kudryavtseva",
-                email: "elena@kudryavtseva.art",
+                telegram: "rulenkova",
+                email: "elena@rulenkova.art",
                 social: "#",
                 socialLabel: "Соцсети"
             },
             footer: {
-                text: "© 2026 Kudryavtseva Art. Все права защищены."
+                text: "© 2026 Rulenkova Art. Все права защищены."
             }
         };
 
         // ========== ПОСТРОЕНИЕ САЙТА ==========
         function buildSite() {
             const hero = document.getElementById('hero');
-            if (SITE_DATA.hero.img) {
-                hero.innerHTML = '<img src="' + SITE_DATA.hero.img + '" alt="' + SITE_DATA.hero.alt + '">';
-            }
+            hero.innerHTML = SITE_DATA.hero.img 
+                ? '<img src="' + SITE_DATA.hero.img + '" alt="' + SITE_DATA.hero.alt + '">'
+                : '<div class="hero-placeholder"><div class="icon">🖼️</div><p>' + SITE_DATA.hero.caption + '</p></div>';
 
             const tabsContainer = document.getElementById('tabs-container');
             SITE_DATA.tabs.forEach(function(tab, i) {
@@ -868,7 +890,7 @@
         var navLinks = document.querySelectorAll('.nav a');
         window.addEventListener('scroll', function() {
             var scrollPos = window.scrollY + 100;
-            var sections = ['hero', 'works', 'about', 'contacts'];
+            var sections = ['hero', 'catalog', 'about', 'contacts'];
             var current = 'hero';
             sections.forEach(function(id) {
                 var section = document.getElementById(id);
@@ -879,17 +901,16 @@
                 if (link.getAttribute('href') === '#' + current) link.classList.add('active');
             });
             var scrollTopBtn = document.getElementById('scroll-top');
-            if (window.scrollY > 500) scrollTopBtn.classList.add('visible');
-            else scrollTopBtn.classList.remove('visible');
+            scrollTopBtn.classList.toggle('visible', window.scrollY > 500);
             checkFadeIn();
         });
 
         function checkFadeIn() {
-            var elements = document.querySelectorAll('.fade-in');
-            elements.forEach(function(el) {
+            document.querySelectorAll('.fade-in').forEach(function(el) {
                 var rect = el.getBoundingClientRect();
-                var windowHeight = window.innerHeight || document.documentElement.clientHeight;
-                if (rect.top <= windowHeight * 0.85) el.classList.add('visible');
+                if (rect.top <= (window.innerHeight || document.documentElement.clientHeight) * 0.85) {
+                    el.classList.add('visible');
+                }
             });
         }
 
