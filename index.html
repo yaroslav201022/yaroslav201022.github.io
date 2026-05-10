@@ -38,7 +38,6 @@
             transform: translateY(0);
         }
 
-        /* ШАПКА */
         .header {
             background: #ffffff;
             padding: 25px 60px;
@@ -120,7 +119,6 @@
             transform: rotate(-45deg) translate(5px, -5px);
         }
 
-        /* ГЛАВНЫЙ ЭКРАН */
         .hero {
             width: 100%;
             height: 70vh;
@@ -139,24 +137,6 @@
             display: block;
         }
 
-        .hero-placeholder {
-            text-align: center;
-            color: #a0988e;
-            position: absolute;
-        }
-
-        .hero-placeholder .icon {
-            font-size: 80px;
-            margin-bottom: 20px;
-        }
-
-        .hero-placeholder p {
-            font-size: 16px;
-            letter-spacing: 2px;
-            font-weight: 300;
-        }
-
-        /* СЕКЦИИ */
         .section {
             max-width: 1200px;
             margin: 0 auto;
@@ -173,7 +153,6 @@
             color: #5a5650;
         }
 
-        /* СЧЁТЧИК */
         .counter {
             text-align: center;
             font-size: 14px;
@@ -188,7 +167,6 @@
             color: #2d3238;
         }
 
-        /* КАТАЛОГ */
         .catalog-section {
             background-color: #ffffff;
             padding: 80px 0;
@@ -224,7 +202,6 @@
             color: #2d3238;
         }
 
-        /* ФИЛЬТР */
         .filter-bar {
             display: flex;
             justify-content: center;
@@ -323,7 +300,6 @@
             grid-column: 1 / -1;
         }
 
-        /* ПОПАП */
         .popup-overlay {
             display: none;
             position: fixed;
@@ -372,7 +348,6 @@
             background: #f2f0ed;
         }
 
-        /* СТРЕЛКИ В ПОПАПЕ */
         .popup-arrow {
             position: absolute;
             top: 50%;
@@ -472,7 +447,6 @@
             background: #4a5058;
         }
 
-        /* НОВОСТИ */
         .news-section {
             background-color: #ffffff;
             padding: 80px 0;
@@ -517,7 +491,6 @@
             line-height: 1.6;
         }
 
-        /* ОТЗЫВЫ */
         .reviews-section {
             background-color: #f2f0ed;
             padding: 80px 0;
@@ -582,7 +555,6 @@
             background: #2d3238;
         }
 
-        /* ОБ АВТОРЕ */
         .about-block {
             display: flex;
             gap: 60px;
@@ -629,7 +601,6 @@
             line-height: 1.8;
         }
 
-        /* КОНТАКТЫ */
         .contacts-grid {
             display: flex;
             gap: 20px;
@@ -659,7 +630,6 @@
             border-color: #2d3238;
         }
 
-        /* ПОДВАЛ */
         .footer {
             text-align: center;
             padding: 40px;
@@ -669,7 +639,6 @@
             font-weight: 300;
         }
 
-        /* КНОПКА НАВЕРХ */
         .scroll-top {
             position: fixed;
             bottom: 30px;
@@ -703,7 +672,6 @@
             border-color: #2d3238;
         }
 
-        /* ТОСТ */
         .toast {
             position: fixed;
             bottom: 100px;
@@ -728,7 +696,6 @@
             transform: translateX(-50%) translateY(0);
         }
 
-        /* АДАПТИВ */
         @media (max-width: 768px) {
             .header {
                 padding: 15px 25px;
@@ -833,7 +800,6 @@
 
     <section class="hero fade-in" id="hero"></section>
 
-    <!-- ========== КАТАЛОГ ========== -->
     <section class="catalog-section" id="catalog">
         <div class="section-title fade-in">Каталог</div>
         <div class="counter fade-in" id="artwork-counter"></div>
@@ -842,25 +808,21 @@
         <div id="gallery-container"></div>
     </section>
 
-    <!-- ========== НОВОСТИ ========== -->
     <section class="news-section" id="news">
         <div class="section-title fade-in">Новости</div>
         <div class="news-grid fade-in" id="news-container"></div>
     </section>
 
-    <!-- ========== ОТЗЫВЫ ========== -->
     <section class="reviews-section" id="reviews">
         <div class="section-title fade-in">Отзывы</div>
         <div class="reviews-slider fade-in" id="reviews-container"></div>
     </section>
 
-    <!-- ========== ОБ АВТОРЕ ========== -->
     <section class="section" id="about">
         <div class="section-title fade-in">Об авторе</div>
         <div class="about-block fade-in" id="about-container"></div>
     </section>
 
-    <!-- ========== КОНТАКТЫ ========== -->
     <section class="section" id="contacts">
         <div class="section-title fade-in">Контакты</div>
         <div class="contacts-grid fade-in" id="contacts-container"></div>
@@ -868,7 +830,6 @@
 
     <footer class="footer" id="footer-container"></footer>
 
-    <!-- ========== ПОПАП ========== -->
     <div class="popup-overlay" id="popup-overlay" onclick="closePopup(event)">
         <div class="popup" onclick="event.stopPropagation()">
             <button class="popup-close" onclick="closePopupDirect()" aria-label="Закрыть">&times;</button>
@@ -894,9 +855,6 @@
     <a href="#hero" class="scroll-top" id="scroll-top" aria-label="Наверх">↑</a>
 
     <script>
-        // ============================================================
-        // ========== ВСЕ ДАННЫЕ САЙТА — МЕНЯТЬ ТОЛЬКО ЗДЕСЬ ==========
-        // ============================================================
         const SITE_DATA = {
             artist: {
                 firstName: "Елена",
@@ -910,7 +868,7 @@
                 ]
             },
             hero: {
-                img: "https://placehold.co/1600x900/e5e1db/a0988e?text=Морской+пейзаж",
+                img: "images/IMG_0009.jpg",
                 alt: "Морской пейзаж",
                 caption: "МОРСКОЙ ПЕЙЗАЖ"
             },
@@ -955,22 +913,14 @@
             }
         };
 
-        // ========== ГЛОБАЛЬНЫЕ ПЕРЕМЕННЫЕ ==========
         let currentPopupCategory = null;
         let currentPopupIndex = null;
         let activeFilters = { year: "Все годы", material: "Все материалы" };
 
-        // ========== ПОСТРОЕНИЕ САЙТА ==========
         function buildSite() {
-            // Hero
             const hero = document.getElementById('hero');
-            if (SITE_DATA.hero.img && !SITE_DATA.hero.img.includes('placehold')) {
-                hero.innerHTML = '<img src="' + SITE_DATA.hero.img + '" alt="' + SITE_DATA.hero.alt + '">';
-            } else if (SITE_DATA.hero.img) {
-                hero.innerHTML = '<img src="' + SITE_DATA.hero.img + '" alt="' + SITE_DATA.hero.alt + '">';
-            }
+            hero.innerHTML = '<img src="' + SITE_DATA.hero.img + '" alt="' + SITE_DATA.hero.alt + '">';
 
-            // Вкладки
             const tabsContainer = document.getElementById('tabs-container');
             SITE_DATA.tabs.forEach((tab, i) => {
                 const btn = document.createElement('button');
@@ -981,7 +931,6 @@
                 tabsContainer.appendChild(btn);
             });
 
-            // Фильтр
             const filterBar = document.getElementById('filter-bar');
             SITE_DATA.filters.years.forEach(year => {
                 const btn = document.createElement('button');
@@ -1000,7 +949,6 @@
 
             renderGallery();
 
-            // Новости
             const newsContainer = document.getElementById('news-container');
             SITE_DATA.news.forEach(n => {
                 const card = document.createElement('div');
@@ -1009,7 +957,6 @@
                 newsContainer.appendChild(card);
             });
 
-            // Отзывы
             const reviewsContainer = document.getElementById('reviews-container');
             SITE_DATA.reviews.forEach((r, i) => {
                 const card = document.createElement('div');
@@ -1028,7 +975,6 @@
             });
             reviewsContainer.appendChild(dots);
 
-            // Об авторе
             const aboutContainer = document.getElementById('about-container');
             let storyHTML = '';
             SITE_DATA.artist.story.forEach(p => storyHTML += '<p>' + p + '</p>');
@@ -1036,7 +982,6 @@
                 '<div class="about-photo"><img src="' + SITE_DATA.artist.photo + '" alt="' + SITE_DATA.artist.firstName + ' ' + SITE_DATA.artist.lastName + '" loading="lazy"></div>' +
                 '<div class="about-text"><h3>' + SITE_DATA.artist.firstName + ' ' + SITE_DATA.artist.lastName + '</h3>' + storyHTML + '</div>';
 
-            // Контакты
             document.getElementById('contacts-container').innerHTML =
                 '<a href="https://t.me/' + SITE_DATA.contacts.telegram + '" class="contact-btn" target="_blank" rel="noopener">Telegram</a>' +
                 '<a href="mailto:' + SITE_DATA.contacts.email + '" class="contact-btn">Почта</a>' +
@@ -1045,13 +990,10 @@
 
             document.getElementById('footer-container').textContent = SITE_DATA.footer.text;
 
-            // Счётчик
             updateCounter();
-
             setTimeout(checkFadeIn, 100);
         }
 
-        // ========== ГАЛЕРЕЯ ==========
         function renderGallery() {
             const container = document.getElementById('gallery-container');
             container.innerHTML = '';
@@ -1067,7 +1009,6 @@
                 let hasResults = false;
                 const artworks = SITE_DATA.artworks[tab.id] || [];
                 artworks.forEach((artwork, index) => {
-                    // Фильтр
                     if (activeFilters.year !== 'Все годы' && artwork.year !== activeFilters.year) return;
                     if (activeFilters.material !== 'Все материалы' && artwork.material !== activeFilters.material) return;
                     hasResults = true;
@@ -1128,7 +1069,6 @@
             setTimeout(checkFadeIn, 50);
         }
 
-        // ========== ПОПАП ==========
         function openPopup(category, index) {
             currentPopupCategory = category;
             currentPopupIndex = index;
@@ -1186,7 +1126,6 @@
             }
         });
 
-        // ========== ОТЗЫВЫ ==========
         let currentReview = 0;
         function goToReview(index) {
             currentReview = index;
@@ -1199,7 +1138,6 @@
             if (total > 1) goToReview((currentReview + 1) % total);
         }, 5000);
 
-        // ========== МЕНЮ ==========
         function toggleMenu() {
             document.getElementById('burger').classList.toggle('open');
             document.getElementById('nav').classList.toggle('open');
@@ -1211,7 +1149,6 @@
             }
         });
 
-        // ========== СКРОЛЛ ==========
         const navLinks = document.querySelectorAll('.nav a');
         window.addEventListener('scroll', function() {
             const scrollPos = window.scrollY + 100;
