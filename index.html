@@ -139,6 +139,23 @@
             display: block;
         }
 
+        .hero-placeholder {
+            text-align: center;
+            color: #a0988e;
+            position: absolute;
+        }
+
+        .hero-placeholder .icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+        }
+
+        .hero-placeholder p {
+            font-size: 16px;
+            letter-spacing: 2px;
+            font-weight: 300;
+        }
+
         /* СЕКЦИИ */
         .section {
             max-width: 1200px;
@@ -303,6 +320,7 @@
             color: #a0988e;
             padding: 40px;
             font-style: italic;
+            grid-column: 1 / -1;
         }
 
         /* ПОПАП */
@@ -564,6 +582,53 @@
             background: #2d3238;
         }
 
+        /* ОБ АВТОРЕ */
+        .about-block {
+            display: flex;
+            gap: 60px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .about-photo {
+            flex: 1;
+            min-width: 250px;
+            aspect-ratio: 3 / 4;
+            background-color: #e5e1db;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .about-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .about-text {
+            flex: 1.5;
+            min-width: 280px;
+        }
+
+        .about-text h3 {
+            font-size: 20px;
+            font-weight: 400;
+            letter-spacing: 2px;
+            margin-bottom: 25px;
+            color: #2d3238;
+        }
+
+        .about-text p {
+            font-size: 14px;
+            color: #5a5650;
+            margin-bottom: 15px;
+            font-weight: 300;
+            line-height: 1.8;
+        }
+
         /* КОНТАКТЫ */
         .contacts-grid {
             display: flex;
@@ -727,6 +792,14 @@
                 padding: 30px 25px;
             }
 
+            .popup-arrow.prev {
+                left: 5px;
+            }
+
+            .popup-arrow.next {
+                right: 5px;
+            }
+
             .contacts-grid {
                 flex-direction: column;
             }
@@ -781,11 +854,13 @@
         <div class="reviews-slider fade-in" id="reviews-container"></div>
     </section>
 
+    <!-- ========== ОБ АВТОРЕ ========== -->
     <section class="section" id="about">
         <div class="section-title fade-in">Об авторе</div>
         <div class="about-block fade-in" id="about-container"></div>
     </section>
 
+    <!-- ========== КОНТАКТЫ ========== -->
     <section class="section" id="contacts">
         <div class="section-title fade-in">Контакты</div>
         <div class="contacts-grid fade-in" id="contacts-container"></div>
@@ -839,7 +914,6 @@
                 alt: "Морской пейзаж",
                 caption: "МОРСКОЙ ПЕЙЗАЖ"
             },
-            // Для фильтра — все возможные значения годов и материалов
             filters: {
                 years: ["Все годы", "2024", "2023", "2022"],
                 materials: ["Все материалы", "Холст, масло", "Бумага, пастель", "Бумага, акварель"]
@@ -871,10 +945,10 @@
                 { text: "Приобрёл две графические работы. Очень доволен качеством и оформлением. Буду следить за новинками.", author: "Сергей, Санкт-Петербург" }
             ],
             contacts: {
-                telegram: "rulenkova",
-                email: "elena@rulenkova.art",
-                social: "#",
-                socialLabel: "Соцсети"
+                telegram: "rulenkovaee",
+                email: "rulenkova.elena@mail.ru",
+                social: "https://vk.ru/rulenkova_elena_hudoznik",
+                socialLabel: "ВКонтакте"
             },
             footer: {
                 text: "© 2026 Rulenkova Art. Все права защищены."
@@ -889,9 +963,12 @@
         // ========== ПОСТРОЕНИЕ САЙТА ==========
         function buildSite() {
             // Hero
-            document.getElementById('hero').innerHTML = SITE_DATA.hero.img
-                ? '<img src="' + SITE_DATA.hero.img + '" alt="' + SITE_DATA.hero.alt + '">'
-                : '<div class="hero-placeholder"><p>' + SITE_DATA.hero.caption + '</p></div>';
+            const hero = document.getElementById('hero');
+            if (SITE_DATA.hero.img && !SITE_DATA.hero.img.includes('placehold')) {
+                hero.innerHTML = '<img src="' + SITE_DATA.hero.img + '" alt="' + SITE_DATA.hero.alt + '">';
+            } else if (SITE_DATA.hero.img) {
+                hero.innerHTML = '<img src="' + SITE_DATA.hero.img + '" alt="' + SITE_DATA.hero.alt + '">';
+            }
 
             // Вкладки
             const tabsContainer = document.getElementById('tabs-container');
@@ -1019,7 +1096,8 @@
         function updateCounter() {
             let total = 0;
             Object.values(SITE_DATA.artworks).forEach(arr => total += arr.length);
-            document.getElementById('artwork-counter').innerHTML = 'В коллекции <span>' + total + '</span> работ' + (total === 1 ? 'а' : total < 5 ? 'ы' : '');
+            const word = total % 10 === 1 && total % 100 !== 11 ? 'работа' : total % 10 >= 2 && total % 10 <= 4 && (total % 100 < 10 || total % 100 >= 20) ? 'работы' : 'работ';
+            document.getElementById('artwork-counter').innerHTML = 'В коллекции <span>' + total + '</span> ' + word;
         }
 
         function switchTab(tabId, btn) {
@@ -1034,13 +1112,16 @@
         function setFilter(type, value, btn) {
             activeFilters[type] = value;
             const filterBar = document.getElementById('filter-bar');
+            const allBtns = filterBar.querySelectorAll('.filter-btn');
+            const yearsCount = SITE_DATA.filters.years.length;
+            
             if (type === 'year') {
-                filterBar.querySelectorAll('.filter-btn').forEach((b, i) => {
-                    if (i < SITE_DATA.filters.years.length) b.classList.toggle('active', b.textContent === value);
+                allBtns.forEach((b, i) => {
+                    if (i < yearsCount) b.classList.toggle('active', b.textContent === value);
                 });
             } else {
-                filterBar.querySelectorAll('.filter-btn').forEach((b, i) => {
-                    if (i >= SITE_DATA.filters.years.length) b.classList.toggle('active', b.textContent === value);
+                allBtns.forEach((b, i) => {
+                    if (i >= yearsCount) b.classList.toggle('active', b.textContent === value);
                 });
             }
             renderGallery();
