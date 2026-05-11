@@ -49,24 +49,27 @@
         .artwork-info h4 { font-size: 14px; font-weight: 400; margin-bottom: 4px; color: #2d3238; }
         .artwork-info p { font-size: 12px; color: #a0988e; font-weight: 300; }
         .no-results { text-align: center; color: #a0988e; padding: 40px; font-style: italic; grid-column: 1 / -1; }
+
+        /* ПОПАП — ВЕРТИКАЛЬНЫЙ */
         .popup-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 999; align-items: center; justify-content: center; }
         .popup-overlay.show { display: flex; }
-        .popup { background: #ffffff; max-width: 800px; width: 90%; display: flex; flex-wrap: wrap; position: relative; }
+        .popup { background: #ffffff; max-width: 700px; width: 90%; display: flex; flex-direction: column; position: relative; max-height: 90vh; overflow-y: auto; }
         .popup-close { position: absolute; top: 15px; right: 20px; background: rgba(255,255,255,0.9); border: none; font-size: 28px; cursor: pointer; color: #5a5650; z-index: 10; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 50%; }
         .popup-close:hover { background: #f2f0ed; }
         .popup-arrow { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.9); border: none; font-size: 24px; cursor: pointer; color: #5a5650; z-index: 10; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 50%; transition: background 0.3s; }
         .popup-arrow:hover { background: #ffffff; }
         .popup-arrow.prev { left: 15px; }
         .popup-arrow.next { right: 15px; }
-        .popup-image { flex: 1; min-width: 300px; background: #e5e1db; display: flex; align-items: center; justify-content: center; position: relative; }
-        .popup-image img { width: 100%; height: auto; display: block; }
-        .popup-details { flex: 1; min-width: 280px; padding: 50px 40px; display: flex; flex-direction: column; justify-content: center; }
-        .popup-details h3 { font-size: 20px; font-weight: 400; margin-bottom: 20px; letter-spacing: 1px; }
-        .popup-details .meta { list-style: none; margin-bottom: 30px; }
+        .popup-image { width: 100%; background: #e5e1db; display: flex; align-items: center; justify-content: center; position: relative; }
+        .popup-image img { width: 100%; height: auto; display: block; max-height: 60vh; object-fit: contain; }
+        .popup-details { padding: 30px 40px 40px; }
+        .popup-details h3 { font-size: 20px; font-weight: 400; margin-bottom: 15px; letter-spacing: 1px; }
+        .popup-details .meta { list-style: none; margin-bottom: 25px; }
         .popup-details .meta li { font-size: 13px; color: #7a7670; margin-bottom: 6px; font-weight: 300; }
         .popup-details .meta li strong { font-weight: 500; color: #2d3238; }
         .btn-price { display: inline-block; background: #2d3238; color: #ffffff; text-decoration: none; padding: 14px 30px; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; text-align: center; transition: background 0.3s; border: none; cursor: pointer; }
         .btn-price:hover { background: #4a5058; }
+
         .news-section { background-color: #ffffff; padding: 80px 0; }
         .news-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; max-width: 1200px; margin: 0 auto; padding: 0 40px; }
         .news-card { border: 1px solid #ddd8d2; padding: 30px; transition: transform 0.3s; }
@@ -74,24 +77,32 @@
         .news-date { font-size: 12px; color: #a0988e; letter-spacing: 1px; margin-bottom: 10px; }
         .news-card h3 { font-size: 16px; font-weight: 500; margin-bottom: 12px; color: #2d3238; }
         .news-card p { font-size: 13px; color: #7a7670; line-height: 1.6; }
+
+        /* ОТЗЫВЫ СО СТРЕЛКАМИ */
         .reviews-section { background-color: #f2f0ed; padding: 80px 0; }
-        .reviews-slider { max-width: 700px; margin: 0 auto; position: relative; overflow: hidden; min-height: 200px; }
-        .review-card { text-align: center; padding: 20px 40px; position: absolute; width: 100%; opacity: 0; transition: opacity 0.5s ease; top: 0; left: 0; }
-        .review-card.active { opacity: 1; position: relative; }
+        .reviews-slider { max-width: 700px; margin: 0 auto; position: relative; min-height: 200px; display: flex; align-items: center; }
+        .review-card { text-align: center; padding: 20px 60px; width: 100%; display: none; }
+        .review-card.active { display: block; }
         .review-text { font-size: 16px; font-style: italic; color: #5a5650; margin-bottom: 20px; line-height: 1.8; }
         .review-author { font-size: 13px; color: #2d3238; font-weight: 500; letter-spacing: 1px; }
-        .review-dots { display: flex; justify-content: center; gap: 10px; margin-top: 30px; }
+        .review-arrow { position: absolute; top: 50%; transform: translateY(-50%); background: none; border: none; font-size: 28px; cursor: pointer; color: #a0988e; z-index: 10; padding: 10px; transition: color 0.3s; }
+        .review-arrow:hover { color: #2d3238; }
+        .review-arrow.prev { left: 0; }
+        .review-arrow.next { right: 0; }
+        .review-dots { display: flex; justify-content: center; gap: 10px; margin-top: 20px; }
         .review-dot { width: 8px; height: 8px; border-radius: 50%; background: #d6cfc7; cursor: pointer; transition: background 0.3s; }
         .review-dot.active { background: #2d3238; }
+
         .about-block { display: flex; gap: 60px; align-items: center; flex-wrap: wrap; }
         .about-photo { flex: 1; min-width: 250px; aspect-ratio: 3 / 4; background-color: #e5e1db; display: flex; align-items: center; justify-content: center; overflow: hidden; }
         .about-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
         .about-text { flex: 1.5; min-width: 280px; }
         .about-text h3 { font-size: 20px; font-weight: 400; letter-spacing: 2px; margin-bottom: 25px; color: #2d3238; }
         .about-text p { font-size: 14px; color: #5a5650; margin-bottom: 15px; font-weight: 300; line-height: 1.8; }
-        .contacts-grid { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; }
+        .contacts-grid { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; align-items: center; }
         .contact-btn { display: inline-block; background: #ffffff; color: #2d3238; text-decoration: none; padding: 16px 40px; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; border: 1px solid #d6cfc7; transition: all 0.3s; text-align: center; cursor: pointer; font-family: 'Montserrat', sans-serif; }
         .contact-btn:hover { background: #2d3238; color: #ffffff; border-color: #2d3238; }
+        .contact-email { font-size: 14px; color: #5a5650; letter-spacing: 1px; }
         .footer { text-align: center; padding: 40px; font-size: 12px; color: #a0988e; letter-spacing: 1px; font-weight: 300; }
         .scroll-top { position: fixed; bottom: 30px; right: 30px; width: 50px; height: 50px; background: #ffffff; color: #2d3238; border: 1px solid #d6cfc7; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; cursor: pointer; opacity: 0; visibility: hidden; transition: all 0.3s; z-index: 99; text-decoration: none; }
         .scroll-top.visible { opacity: 1; visibility: visible; }
@@ -108,12 +119,13 @@
             .hero { height: 40vh; }
             .gallery-grid, .news-grid { grid-template-columns: 1fr 1fr; padding: 0 20px; }
             .section { padding: 50px 20px; }
-            .popup { flex-direction: column; max-height: 90vh; overflow-y: auto; }
-            .popup-details { padding: 30px 25px; }
+            .popup-details { padding: 25px; }
             .popup-arrow.prev { left: 5px; }
             .popup-arrow.next { right: 5px; }
             .contacts-grid { flex-direction: column; }
             .scroll-top { bottom: 20px; right: 20px; width: 40px; height: 40px; font-size: 16px; }
+            .review-arrow { font-size: 22px; }
+            .review-card { padding: 20px 40px; }
         }
     </style>
 </head>
@@ -124,7 +136,7 @@
         <button class="burger" id="burger" onclick="toggleMenu()" aria-label="Меню"><span></span><span></span><span></span></button>
         <nav class="nav" id="nav">
             <a href="#hero" class="active">Главная</a>
-            <a href="#catalog">Каталог</a>
+            <a href="#catalog">Галерея</a>
             <a href="#news">Новости</a>
             <a href="#reviews">Отзывы</a>
             <a href="#about">Об авторе</a>
@@ -135,7 +147,7 @@
     <section class="hero fade-in" id="hero"></section>
 
     <section class="catalog-section" id="catalog">
-        <div class="section-title fade-in">Каталог</div>
+        <div class="section-title fade-in">Галерея</div>
         <div class="counter fade-in" id="artwork-counter"></div>
         <div class="tabs fade-in" id="tabs-container"></div>
         <div class="filter-bar fade-in" id="filter-bar"></div>
@@ -190,16 +202,16 @@
             artist: {
                 firstName: "Елена",
                 lastName: "Руленкова",
-                city: "[город]",
-                photo: "https://placehold.co/400x533/e5e1db/a0988e?text=Елена",
+                city: "Тверь",
+                photo: "images/images/image-06-05-26-09-54.webp",
                 story: [
-                    "Морской пейзаж — моя главная тема. Вода, небо, бесконечная линия горизонта и состояние природы, которое никогда не повторяется. Я пишу море более 15 лет.",
-                    "Работаю маслом на холсте, а также в графике. Для меня важен свет, пространство и воздух. Картина должна оставлять место для тишины.",
-                    "Живу и работаю в [городе]. Участвую в выставках с 2010 года."
+                    "Елена Руленкова родилась в 1989 году в Твери. С отличием окончила МБУ ДО Художественная школа им. В.А. Серова. Затем в жизни Елены случился период, когда она не брала в руки кисти более десяти лет. Но любовь к творчеству вернула ее на путь художника.",
+                    "На сегодняшний день является участником пленэров на Академической даче им. И.Е. Репина, автором персональных выставок в Твери, участником множества коллективных выставок в Москве и Санкт-Петербурге, участником международных выставок.",
+                    "Работы находятся в Музее живописи В.М. Сидорова «На теплой земле», в коллекции Министра культуры, в частных коллекциях России и ближнего зарубежья."
                 ]
             },
             hero: {
-                img: "images/images/IMG_0009.jpg",
+                img: "images/images/Морская волна, масло, холст, 78х210 см, 2023 (2).jpg",
                 alt: "Морская волна",
                 caption: "МОРСКАЯ ВОЛНА"
             },
@@ -208,7 +220,7 @@
                 materials: ["Все материалы", "Масло, холст", "Масло, бумага для масла"]
             },
             tabs: [
-                { id: "themes", label: "Темы" },
+                { id: "themes", label: "Морской пейзаж" },
                 { id: "graphics", label: "Графика" }
             ],
             artworks: {
@@ -235,7 +247,15 @@
                     { title: "Чёрное море в октябре", material: "Масло, холст", size: "160×110 см", year: "2025", img: "images/images/IMG_5820.jpg" },
                     { title: "В лучах уходящего солнца", material: "Масло, холст", size: "90×70 см", year: "2022", img: "images/images/IMG_6576.jpg" },
                     { title: "ИМЕРЕТИНСКАЯ ВОЛНА", material: "Масло, холст", size: "25×35 см", year: "2025", img: "images/images/IMG_6730.jpg" },
-                    { title: "ВОЛНЫ ОКЕАНА", material: "Масло, холст", size: "50×70 см", year: "2025", img: "images/images/IMG_7357.jpg" }
+                    { title: "ВОЛНЫ ОКЕАНА", material: "Масло, холст", size: "50×70 см", year: "2025", img: "images/images/IMG_7357.jpg" },
+                    { title: "ВОЛНЫ ОКЕАНА", material: "Масло, холст", size: "50×70 см", year: "2025", img: "images/images/IMG_7386.jpg" },
+                    { title: "После завтрака в океан", material: "Масло, холст", size: "50×70 см", year: "2022", img: "images/images/IMG_7588.jpg" },
+                    { title: "Воспоминания о тёплом и ласковом океане", material: "Масло, холст", size: "50×70 см", year: "2022", img: "images/images/IMG_7852.jpg" },
+                    { title: "Закат в Голубицкой", material: "Масло, холст", size: "20×30 см", year: "2024", img: "images/images/IMG_8311.jpg" },
+                    { title: "Изумруд", material: "Масло, холст", size: "60×80 см", year: "2023", img: "images/images/IMG_8534.jpg" },
+                    { title: "ВОЛНА. АЗОВСКОЕ МОРЕ", material: "Масло, холст", size: "35×45 см", year: "2024", img: "images/images/IMG_9187.jpg" },
+                    { title: "АЗОВСКОЕ МОРЕ", material: "Масло, холст", size: "20×40 см", year: "2024", img: "images/images/IMG_9533.jpg" },
+                    { title: "Пасмурный день", material: "Масло, холст", size: "60×80 см", year: "2022", img: "images/images/_DSC1080.jpg" }
                 ],
                 graphics: [
                     { title: "ПОРТРЕТ ОДНОГО КИТА", material: "Масло, бумага для масла", size: "18×24 см", year: "2022", img: "images/images/IMG_4045.jpg" }
@@ -243,7 +263,7 @@
             },
             news: [
                 { date: "Май 2026", title: "Выставка в Москве", text: "Персональная выставка «Море и небо» пройдёт в галерее «Арт-пространство» с 15 по 30 мая." },
-                { date: "Апрель 2026", title: "Новая серия работ", text: "Завершена работа над серией из 5 картин, посвящённых Чёрному морю. Скоро в каталоге." },
+                { date: "Апрель 2026", title: "Новая серия работ", text: "Завершена работа над серией из 5 картин, посвящённых Чёрному морю. Скоро в галерее." },
                 { date: "Март 2026", title: "Мастер-класс", text: "Провела открытый мастер-класс по масляной живописи для студентов художественного училища." }
             ],
             reviews: [
@@ -305,23 +325,39 @@
                 newsContainer.appendChild(card);
             });
 
+            // Отзывы со стрелками
             const reviewsContainer = document.getElementById('reviews-container');
+            reviewsContainer.innerHTML = '';
+            const sliderInner = document.createElement('div');
+            sliderInner.style.width = '100%';
+            sliderInner.style.position = 'relative';
             SITE_DATA.reviews.forEach((r, i) => {
                 const card = document.createElement('div');
                 card.className = 'review-card' + (i === 0 ? ' active' : '');
                 card.innerHTML = '<p class="review-text">«' + r.text + '»</p><p class="review-author">' + r.author + '</p>';
-                reviewsContainer.appendChild(card);
+                sliderInner.appendChild(card);
             });
-            const dots = document.createElement('div');
-            dots.className = 'review-dots';
-            dots.id = 'review-dots';
+            const prevArr = document.createElement('button');
+            prevArr.className = 'review-arrow prev';
+            prevArr.innerHTML = '←';
+            prevArr.onclick = function() { navigateReview(-1); };
+            const nextArr = document.createElement('button');
+            nextArr.className = 'review-arrow next';
+            nextArr.innerHTML = '→';
+            nextArr.onclick = function() { navigateReview(1); };
+            reviewsContainer.appendChild(prevArr);
+            reviewsContainer.appendChild(sliderInner);
+            reviewsContainer.appendChild(nextArr);
+            const dotsContainer = document.createElement('div');
+            dotsContainer.className = 'review-dots';
+            dotsContainer.id = 'review-dots';
             SITE_DATA.reviews.forEach((_, i) => {
                 const dot = document.createElement('span');
                 dot.className = 'review-dot' + (i === 0 ? ' active' : '');
                 dot.onclick = function() { goToReview(i); };
-                dots.appendChild(dot);
+                dotsContainer.appendChild(dot);
             });
-            reviewsContainer.appendChild(dots);
+            reviewsContainer.appendChild(dotsContainer);
 
             const aboutContainer = document.getElementById('about-container');
             let storyHTML = '';
@@ -332,7 +368,7 @@
 
             document.getElementById('contacts-container').innerHTML =
                 '<a href="https://t.me/' + SITE_DATA.contacts.telegram + '" class="contact-btn" target="_blank" rel="noopener">Telegram</a>' +
-                '<a href="mailto:' + SITE_DATA.contacts.email + '" class="contact-btn">Почта</a>' +
+                '<span class="contact-email">' + SITE_DATA.contacts.email + '</span>' +
                 '<a href="' + SITE_DATA.contacts.social + '" class="contact-btn" target="_blank" rel="noopener">' + SITE_DATA.contacts.socialLabel + '</a>' +
                 '<button class="contact-btn" onclick="showMasterclassToast()">Мастер-классы</button>';
 
@@ -468,11 +504,11 @@
             document.querySelectorAll('.review-card').forEach((c, i) => c.classList.toggle('active', i === index));
             document.querySelectorAll('.review-dot').forEach((d, i) => d.classList.toggle('active', i === index));
         }
-        setInterval(() => {
-            if (document.hidden) return;
+        function navigateReview(direction) {
             const total = SITE_DATA.reviews.length;
-            if (total > 1) goToReview((currentReview + 1) % total);
-        }, 5000);
+            currentReview = (currentReview + direction + total) % total;
+            goToReview(currentReview);
+        }
 
         function toggleMenu() {
             document.getElementById('burger').classList.toggle('open');
