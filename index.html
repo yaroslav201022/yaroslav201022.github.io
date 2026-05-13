@@ -9,14 +9,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
-        body { font-family: 'Montserrat', sans-serif; background-color: #f2f0ed; color: #2c2c2c; line-height: 1.6; }
+        html { scroll-behavior: smooth; font-size: 18px; }
+        body { font-family: 'Montserrat', sans-serif; background-color: #f2f0ed; color: #2c2c2c; line-height: 1.7; }
         .fade-in { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
         .fade-in.visible { opacity: 1; transform: translateY(0); }
         .header { background: #ffffff; padding: 25px 60px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; border-bottom: 1px solid #ddd8d2; }
         .logo { font-size: 28px; font-weight: 300; letter-spacing: 4px; text-transform: uppercase; color: #2d3238; text-decoration: none; }
         .nav { display: flex; align-items: center; }
-        .nav a { text-decoration: none; color: #7a7670; margin-left: 40px; font-size: 14px; font-weight: 400; letter-spacing: 1px; text-transform: uppercase; transition: color 0.3s; position: relative; }
+        .nav a { text-decoration: none; color: #7a7670; margin-left: 40px; font-size: 15px; font-weight: 400; letter-spacing: 1px; text-transform: uppercase; transition: color 0.3s; position: relative; }
         .nav a:hover, .nav a.active { color: #2d3238; }
         .nav a.active::after { content: ''; position: absolute; bottom: -8px; left: 0; width: 100%; height: 1px; background: #2d3238; }
         .burger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 5px; }
@@ -27,28 +27,30 @@
         .hero { width: 100%; height: 70vh; background-color: #e5e1db; display: flex; align-items: center; justify-content: center; overflow: hidden; position: relative; }
         .hero img { width: 100%; height: 100%; object-fit: cover; display: block; }
         .section { max-width: 1200px; margin: 0 auto; padding: 80px 40px; }
-        .section-title { text-align: center; font-size: 24px; font-weight: 300; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 60px; color: #5a5650; }
-        .counter { text-align: center; font-size: 14px; color: #a0988e; margin-bottom: 40px; font-weight: 300; letter-spacing: 1px; }
+        .section-title { text-align: center; font-size: 26px; font-weight: 300; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 60px; color: #5a5650; }
+        .counter { text-align: center; font-size: 15px; color: #a0988e; margin-bottom: 40px; font-weight: 300; letter-spacing: 1px; }
         .counter span { font-weight: 500; color: #2d3238; }
         .catalog-section { background-color: #ffffff; padding: 80px 0; }
         .tabs { display: flex; justify-content: center; gap: 40px; margin-bottom: 40px; }
-        .tab-btn { background: none; border: none; font-family: 'Montserrat', sans-serif; font-size: 16px; letter-spacing: 2px; text-transform: uppercase; color: #a0988e; cursor: pointer; padding-bottom: 10px; border-bottom: 1px solid transparent; transition: all 0.3s; }
+        .tab-btn { background: none; border: none; font-family: 'Montserrat', sans-serif; font-size: 17px; letter-spacing: 2px; text-transform: uppercase; color: #a0988e; cursor: pointer; padding-bottom: 10px; border-bottom: 1px solid transparent; transition: all 0.3s; }
         .tab-btn.active { color: #2d3238; border-bottom-color: #2d3238; }
         .tab-btn:hover { color: #2d3238; }
         .filter-bar { display: flex; justify-content: center; gap: 20px; margin-bottom: 40px; flex-wrap: wrap; }
-        .filter-btn { background: none; border: 1px solid #ddd8d2; padding: 8px 20px; font-family: 'Montserrat', sans-serif; font-size: 12px; letter-spacing: 1px; text-transform: uppercase; color: #7a7670; cursor: pointer; transition: all 0.3s; }
+        .filter-btn { background: none; border: 1px solid #ddd8d2; padding: 8px 20px; font-family: 'Montserrat', sans-serif; font-size: 13px; letter-spacing: 1px; text-transform: uppercase; color: #7a7670; cursor: pointer; transition: all 0.3s; }
         .filter-btn.active, .filter-btn:hover { background: #2d3238; color: #ffffff; border-color: #2d3238; }
         .tab-content { display: none; }
         .tab-content.active { display: block; }
-        .gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; max-width: 1200px; margin: 0 auto; padding: 0 40px; }
-        .artwork-card { cursor: pointer; transition: transform 0.3s; background: #ffffff; }
-        .artwork-card:hover { transform: translateY(-5px); }
-        .artwork-image { width: 100%; aspect-ratio: 4 / 3; background-color: #e5e1db; display: flex; align-items: center; justify-content: center; margin-bottom: 15px; overflow: hidden; }
-        .artwork-image img { width: 100%; height: 100%; object-fit: cover; display: block; }
-        .artwork-info { text-align: center; }
-        .artwork-info h4 { font-size: 14px; font-weight: 400; margin-bottom: 4px; color: #2d3238; }
-        .artwork-info p { font-size: 12px; color: #a0988e; font-weight: 300; }
-        .no-results { text-align: center; color: #a0988e; padding: 40px; font-style: italic; grid-column: 1 / -1; }
+
+        /* MASONRY ГАЛЕРЕЯ — КАК У CARLA GRACE */
+        .gallery-masonry { max-width: 1200px; margin: 0 auto; padding: 0 20px; columns: 3; column-gap: 20px; }
+        .artwork-card { break-inside: avoid; margin-bottom: 20px; cursor: pointer; transition: transform 0.3s; background: #ffffff; display: block; }
+        .artwork-card:hover { transform: translateY(-3px); }
+        .artwork-image { width: 100%; background-color: #e5e1db; display: flex; align-items: center; justify-content: center; overflow: hidden; margin-bottom: 12px; }
+        .artwork-image img { width: 100%; height: auto; display: block; }
+        .artwork-info { text-align: center; padding-bottom: 5px; }
+        .artwork-info h4 { font-size: 15px; font-weight: 400; margin-bottom: 4px; color: #2d3238; }
+        .artwork-info p { font-size: 13px; color: #a0988e; font-weight: 300; }
+        .no-results { text-align: center; color: #a0988e; padding: 40px; font-style: italic; }
 
         .popup-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 999; align-items: center; justify-content: center; }
         .popup-overlay.show { display: flex; }
@@ -64,64 +66,69 @@
         .popup-details { padding: 30px 40px 40px; }
         .popup-details h3 { font-size: 20px; font-weight: 400; margin-bottom: 15px; letter-spacing: 1px; }
         .popup-details .meta { list-style: none; margin-bottom: 25px; }
-        .popup-details .meta li { font-size: 13px; color: #7a7670; margin-bottom: 6px; font-weight: 300; }
+        .popup-details .meta li { font-size: 14px; color: #7a7670; margin-bottom: 6px; font-weight: 300; }
         .popup-details .meta li strong { font-weight: 500; color: #2d3238; }
-        .btn-price { display: inline-block; background: #2d3238; color: #ffffff; text-decoration: none; padding: 14px 30px; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; text-align: center; transition: background 0.3s; border: none; cursor: pointer; }
+        .btn-price { display: inline-block; background: #2d3238; color: #ffffff; text-decoration: none; padding: 14px 30px; font-size: 14px; letter-spacing: 2px; text-transform: uppercase; text-align: center; transition: background 0.3s; border: none; cursor: pointer; }
         .btn-price:hover { background: #4a5058; }
 
         .news-section { background-color: #ffffff; padding: 80px 0; }
         .news-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; max-width: 1200px; margin: 0 auto; padding: 0 40px; }
         .news-card { border: 1px solid #ddd8d2; padding: 30px; transition: transform 0.3s; }
         .news-card:hover { transform: translateY(-3px); }
-        .news-date { font-size: 12px; color: #a0988e; letter-spacing: 1px; margin-bottom: 10px; }
+        .news-date { font-size: 13px; color: #a0988e; letter-spacing: 1px; margin-bottom: 10px; }
         .news-card h3 { font-size: 16px; font-weight: 500; margin-bottom: 12px; color: #2d3238; }
-        .news-card p { font-size: 13px; color: #7a7670; line-height: 1.6; }
+        .news-card p { font-size: 14px; color: #7a7670; line-height: 1.6; }
 
-        /* ОТЗЫВЫ — БЕЗ ТОЧЕК */
-        .reviews-section { background-color: #f2f0ed; padding: 80px 0; }
-        .reviews-slider { max-width: 700px; margin: 0 auto; position: relative; min-height: 200px; display: flex; align-items: center; }
-        .review-card { text-align: center; padding: 20px 60px; width: 100%; display: none; }
-        .review-card.active { display: block; }
-        .review-text { font-size: 16px; font-style: italic; color: #5a5650; margin-bottom: 20px; line-height: 1.8; }
-        .review-author { font-size: 13px; color: #2d3238; font-weight: 500; letter-spacing: 1px; }
-        .review-arrow { position: absolute; top: 50%; transform: translateY(-50%); background: none; border: none; font-size: 28px; cursor: pointer; color: #a0988e; z-index: 10; padding: 10px; transition: color 0.3s; }
-        .review-arrow:hover { color: #2d3238; }
-        .review-arrow.prev { left: 0; }
-        .review-arrow.next { right: 0; }
+        /* ВЫСТАВКИ */
+        .exhibitions-section { background-color: #ffffff; padding: 80px 0; }
+        .exhibitions-list { max-width: 900px; margin: 0 auto; padding: 0 40px; }
+        .exhibition-item { border-bottom: 1px solid #ddd8d2; padding: 20px 0; }
+        .exhibition-item:last-child { border-bottom: none; }
+        .exhibition-location { font-size: 14px; font-weight: 500; color: #2d3238; margin-bottom: 4px; }
+        .exhibition-details { font-size: 14px; color: #7a7670; font-weight: 300; }
+        .exhibition-type { display: inline-block; font-size: 11px; letter-spacing: 1px; text-transform: uppercase; padding: 3px 10px; margin-top: 6px; }
+        .exhibition-type.personal { background: #2d3238; color: #ffffff; }
+        .exhibition-type.group { background: #e5e1db; color: #5a5650; }
+        .exhibition-gallery { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-top: 40px; max-width: 900px; margin-left: auto; margin-right: auto; padding: 0 40px; }
+        .exhibition-photo { aspect-ratio: 4/3; background: #e5e1db; overflow: hidden; }
+        .exhibition-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .exhibition-photo-placeholder { aspect-ratio: 4/3; background: #e5e1db; display: flex; align-items: center; justify-content: center; color: #a0988e; font-size: 13px; text-align: center; padding: 20px; }
 
         .about-block { display: flex; gap: 60px; align-items: center; flex-wrap: wrap; }
         .about-photo { flex: 1; min-width: 250px; aspect-ratio: 3 / 4; background-color: #e5e1db; display: flex; align-items: center; justify-content: center; overflow: hidden; }
         .about-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
         .about-text { flex: 1.5; min-width: 280px; }
         .about-text h3 { font-size: 20px; font-weight: 400; letter-spacing: 2px; margin-bottom: 25px; color: #2d3238; }
-        .about-text p { font-size: 14px; color: #5a5650; margin-bottom: 15px; font-weight: 300; line-height: 1.8; }
+        .about-text p { font-size: 15px; color: #5a5650; margin-bottom: 15px; font-weight: 300; line-height: 1.8; }
         .contacts-grid { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; align-items: center; }
-        .contact-btn { display: inline-block; background: #ffffff; color: #2d3238; text-decoration: none; padding: 16px 40px; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; border: 1px solid #d6cfc7; transition: all 0.3s; text-align: center; cursor: pointer; font-family: 'Montserrat', sans-serif; }
+        .contact-btn { display: inline-block; background: #ffffff; color: #2d3238; text-decoration: none; padding: 16px 40px; font-size: 14px; letter-spacing: 2px; text-transform: uppercase; border: 1px solid #d6cfc7; transition: all 0.3s; text-align: center; cursor: pointer; font-family: 'Montserrat', sans-serif; }
         .contact-btn:hover { background: #2d3238; color: #ffffff; border-color: #2d3238; }
-        .contact-email-btn { display: inline-block; background: #ffffff; color: #2d3238; text-decoration: none; padding: 16px 40px; font-size: 13px; letter-spacing: 1px; text-transform: none; border: 1px solid #d6cfc7; transition: all 0.3s; text-align: center; cursor: default; font-family: 'Montserrat', sans-serif; }
-        .footer { text-align: center; padding: 40px; font-size: 12px; color: #a0988e; letter-spacing: 1px; font-weight: 300; }
+        .contact-email-btn { display: inline-block; background: #ffffff; color: #2d3238; text-decoration: none; padding: 16px 40px; font-size: 14px; letter-spacing: 1px; text-transform: none; border: 1px solid #d6cfc7; transition: all 0.3s; text-align: center; cursor: default; font-family: 'Montserrat', sans-serif; }
+        .footer { text-align: center; padding: 40px; font-size: 13px; color: #a0988e; letter-spacing: 1px; font-weight: 300; }
         .scroll-top { position: fixed; bottom: 30px; right: 30px; width: 50px; height: 50px; background: #ffffff; color: #2d3238; border: 1px solid #d6cfc7; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; cursor: pointer; opacity: 0; visibility: hidden; transition: all 0.3s; z-index: 99; text-decoration: none; }
         .scroll-top.visible { opacity: 1; visibility: visible; }
         .scroll-top:hover { background: #2d3238; color: #ffffff; border-color: #2d3238; }
-        .toast { position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%) translateY(20px); background: #2d3238; color: #ffffff; padding: 14px 30px; font-size: 13px; letter-spacing: 1px; border-radius: 4px; opacity: 0; visibility: hidden; transition: all 0.4s; z-index: 200; white-space: nowrap; }
+        .toast { position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%) translateY(20px); background: #2d3238; color: #ffffff; padding: 14px 30px; font-size: 14px; letter-spacing: 1px; border-radius: 4px; opacity: 0; visibility: hidden; transition: all 0.4s; z-index: 200; white-space: nowrap; }
         .toast.show { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0); }
         @media (max-width: 768px) {
+            html { font-size: 16px; }
             .header { padding: 15px 25px; position: relative; }
             .burger { display: flex; }
             .nav { position: absolute; top: 100%; left: 0; width: 100%; background: #ffffff; flex-direction: column; padding: 0; max-height: 0; overflow: hidden; transition: max-height 0.4s ease, padding 0.4s ease; border-bottom: 1px solid #ddd8d2; }
             .nav.open { max-height: 400px; padding: 10px 0; }
-            .nav a { margin: 0; padding: 12px 25px; border-top: 1px solid #f5f2ef; }
+            .nav a { margin: 0; padding: 12px 25px; border-top: 1px solid #f5f2ef; font-size: 14px; }
             .nav a.active::after { display: none; }
             .hero { height: 40vh; }
-            .gallery-grid, .news-grid { grid-template-columns: 1fr 1fr; padding: 0 20px; }
+            .gallery-masonry { columns: 2; column-gap: 10px; padding: 0 10px; }
+            .artwork-card { margin-bottom: 10px; }
+            .news-grid { grid-template-columns: 1fr 1fr; padding: 0 20px; }
             .section { padding: 50px 20px; }
             .popup-details { padding: 25px; }
             .popup-arrow.prev { left: 5px; }
             .popup-arrow.next { right: 5px; }
             .contacts-grid { flex-direction: column; }
             .scroll-top { bottom: 20px; right: 20px; width: 40px; height: 40px; font-size: 16px; }
-            .review-arrow { font-size: 22px; }
-            .review-card { padding: 20px 40px; }
+            .exhibition-gallery { grid-template-columns: 1fr 1fr; }
         }
     </style>
 </head>
@@ -134,7 +141,7 @@
             <a href="#hero" class="active">Главная</a>
             <a href="#catalog">Галерея</a>
             <a href="#news">Новости</a>
-            <a href="#reviews">Отзывы</a>
+            <a href="#exhibitions">Выставки</a>
             <a href="#about">Об авторе</a>
             <a href="#contacts">Контакты</a>
         </nav>
@@ -155,9 +162,10 @@
         <div class="news-grid fade-in" id="news-container"></div>
     </section>
 
-    <section class="reviews-section" id="reviews">
-        <div class="section-title fade-in">Отзывы</div>
-        <div class="reviews-slider fade-in" id="reviews-container"></div>
+    <section class="exhibitions-section" id="exhibitions">
+        <div class="section-title fade-in">Выставки</div>
+        <div class="exhibitions-list fade-in" id="exhibitions-list"></div>
+        <div class="exhibition-gallery fade-in" id="exhibition-gallery"></div>
     </section>
 
     <section class="section" id="about">
@@ -261,11 +269,29 @@
                 { date: "Апрель 2026", title: "Новая серия работ", text: "Завершена работа над серией из 5 картин, посвящённых Чёрному морю. Скоро в галерее." },
                 { date: "Март 2026", title: "Мастер-класс", text: "Провела открытый мастер-класс по масляной живописи для студентов художественного училища." }
             ],
-            reviews: [
-                { text: "Картина «Утро на море» теперь украшает нашу гостиную. Невероятная глубина и свет. Спасибо, Елена!", author: "Анна, Москва" },
-                { text: "Заказывал портрет в подарок — результат превзошёл все ожидания. Тонкая работа, точное попадание в характер.", author: "Дмитрий, Сочи" },
-                { text: "Приобрёл две графические работы. Очень доволен качеством и оформлением. Буду следить за новинками.", author: "Сергей, Санкт-Петербург" }
+            exhibitions: [
+                { location: 'Санкт-Петербург, гостиница Репинская', title: '«Те, кто честнее нас!»', date: '10.01–04.02.2023', type: 'group' },
+                { location: 'Москва, Центр культуры и спорта', title: '«Вспоминая пленэр 2022»', date: '11.01–29.01.2023', type: 'group' },
+                { location: 'Тверь, книжный магазин Абракнигабра', title: '«Дыхание моря»', date: '08.03–06.06.2023', type: 'personal' },
+                { location: 'Тверь, Городская дума', title: '«Море вдохновения»', date: '27.11–25.12.2023', type: 'personal' },
+                { location: 'Тверь, ОДК Пролетарка', title: '«Дыхание моря»', date: '06.02–29.02.2024', type: 'personal' },
+                { location: 'Тверь, ДК Металлист', title: 'Персональная выставка', date: '01.03–05.05.2024', type: 'personal' },
+                { location: 'Москва, Гостиный двор', title: 'IV Художественно-промышленный выставка-форум «Уникальная Россия»', date: '02.05–12.05.2024', type: 'group' },
+                { location: 'Москва, Гостиный двор', title: 'Юбилейная итоговая художественная выставка «Верность традициям»', date: '02.05–12.05.2024', type: 'group' },
+                { location: 'Москва, Гостиный двор', title: 'Первая международная выставка «75 лет дружбе народов»', date: '02.05–12.05.2024', type: 'group' },
+                { location: 'Санкт-Петербург, «ЦВММ» Минобороны России', title: 'Международный экспозиционный марафон «Ватерлиния»', date: '15.12.2024–20.03.2025', type: 'group' },
+                { location: 'Конаково, ПТЦ «Конаковский фаянс»', title: 'Персональная выставка', date: '20.12.2024–23.01.2025', type: 'personal' },
+                { location: 'Тверь, Тверской городской музейно-выставочный центр', title: 'Международная выставка «Арт-прорыв 2025»', date: '21.02.2025–16.02.2025', type: 'group' },
+                { location: 'Тверь, Музей живописи Валентина Сидорова', title: '«Крымская весна»', date: '18.03.2025–15.04.2025', type: 'group' },
+                { location: 'Санкт-Петербург, Государственный Музей Городской Скульптуры', title: '«QUATRO»', date: '10.04.2025–21.04.2025', type: 'group' },
+                { location: 'Тверь, Музей живописи Валентина Сидорова', title: '«Вдохновленная морем»', date: '17.04.2025–15.05.2025', type: 'personal' },
+                { location: 'Москва, ВДНХ, Морской Арт Клуб', title: '«Россия морская»', date: '08.08.2025–31.12.2025', type: 'group' },
+                { location: 'Санкт-Петербург, Особняк А.П. Брюллова', title: '«Место встречи»', date: '02.10.2025–15.10.2025', type: 'personal' },
+                { location: 'Тверь, книжный магазин Абракнигабра', title: '«Море, масло и цветные карандаши»', date: '05.11–15.12.2025', type: 'personal' },
+                { location: 'Москва, ЦМД «Бабушкинский-2»', title: 'Персональная выставка', date: '12.01–12.03.2026', type: 'personal' },
+                { location: 'Тверь, Тверской городской музейно-выставочный центр', title: 'Международная выставка «Арт-прорыв 2026»', date: '20.02.2026–15.03.2026', type: 'group' }
             ],
+            exhibitionPhotos: [],
             contacts: {
                 telegram: "rulenkovaee",
                 email: "rulenkova.elena@mail.ru",
@@ -320,28 +346,28 @@
                 newsContainer.appendChild(card);
             });
 
-            const reviewsContainer = document.getElementById('reviews-container');
-            reviewsContainer.innerHTML = '';
-            const sliderInner = document.createElement('div');
-            sliderInner.style.width = '100%';
-            sliderInner.style.position = 'relative';
-            SITE_DATA.reviews.forEach((r, i) => {
-                const card = document.createElement('div');
-                card.className = 'review-card' + (i === 0 ? ' active' : '');
-                card.innerHTML = '<p class="review-text">«' + r.text + '»</p><p class="review-author">' + r.author + '</p>';
-                sliderInner.appendChild(card);
+            const exhibitionsList = document.getElementById('exhibitions-list');
+            SITE_DATA.exhibitions.forEach(ex => {
+                const item = document.createElement('div');
+                item.className = 'exhibition-item';
+                item.innerHTML =
+                    '<div class="exhibition-location">' + ex.location + '</div>' +
+                    '<div class="exhibition-details">' + ex.title + ' — ' + ex.date + '</div>' +
+                    '<span class="exhibition-type ' + ex.type + '">' + (ex.type === 'personal' ? 'Персональная' : 'Групповая') + '</span>';
+                exhibitionsList.appendChild(item);
             });
-            const prevArr = document.createElement('button');
-            prevArr.className = 'review-arrow prev';
-            prevArr.innerHTML = '←';
-            prevArr.onclick = function() { navigateReview(-1); };
-            const nextArr = document.createElement('button');
-            nextArr.className = 'review-arrow next';
-            nextArr.innerHTML = '→';
-            nextArr.onclick = function() { navigateReview(1); };
-            reviewsContainer.appendChild(prevArr);
-            reviewsContainer.appendChild(sliderInner);
-            reviewsContainer.appendChild(nextArr);
+
+            const exhibitionGallery = document.getElementById('exhibition-gallery');
+            if (SITE_DATA.exhibitionPhotos.length > 0) {
+                SITE_DATA.exhibitionPhotos.forEach(photo => {
+                    const photoDiv = document.createElement('div');
+                    photoDiv.className = 'exhibition-photo';
+                    photoDiv.innerHTML = '<img src="' + photo + '" alt="Фото с выставки" loading="lazy">';
+                    exhibitionGallery.appendChild(photoDiv);
+                });
+            } else {
+                exhibitionGallery.style.display = 'none';
+            }
 
             const aboutContainer = document.getElementById('about-container');
             let storyHTML = '';
@@ -369,7 +395,7 @@
                 tabDiv.className = 'tab-content' + (tabIndex === 0 ? ' active' : '');
                 tabDiv.id = 'tab-' + tab.id;
                 const grid = document.createElement('div');
-                grid.className = 'gallery-grid fade-in';
+                grid.className = 'gallery-masonry fade-in';
                 let hasResults = false;
                 const artworks = SITE_DATA.artworks[tab.id] || [];
                 artworks.forEach((artwork, index) => {
@@ -482,13 +508,6 @@
             }
         });
 
-        let currentReview = 0;
-        function navigateReview(direction) {
-            const total = SITE_DATA.reviews.length;
-            currentReview = (currentReview + direction + total) % total;
-            document.querySelectorAll('.review-card').forEach((c, i) => c.classList.toggle('active', i === currentReview));
-        }
-
         function toggleMenu() {
             document.getElementById('burger').classList.toggle('open');
             document.getElementById('nav').classList.toggle('open');
@@ -503,7 +522,7 @@
         const navLinks = document.querySelectorAll('.nav a');
         window.addEventListener('scroll', function() {
             const scrollPos = window.scrollY + 100;
-            const sections = ['hero', 'catalog', 'news', 'reviews', 'about', 'contacts'];
+            const sections = ['hero', 'catalog', 'news', 'exhibitions', 'about', 'contacts'];
             let current = 'hero';
             sections.forEach(id => {
                 const section = document.getElementById(id);
