@@ -26,10 +26,14 @@
         .burger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
         .hero { width: 100%; height: 70vh; background-color: #e5e1db; display: flex; align-items: center; justify-content: center; overflow: hidden; position: relative; }
         .hero img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+        /* ИНТРО-ТЕКСТ ПОСЛЕ HERO */
+        .intro-text { background-color: #ffffff; text-align: center; padding: 60px 40px; }
+        .intro-text .subtitle { font-size: 16px; font-weight: 300; letter-spacing: 3px; text-transform: uppercase; color: #a0988e; margin-bottom: 30px; }
+        .intro-text .quote { font-size: 20px; font-weight: 300; font-style: italic; color: #5a5650; max-width: 800px; margin: 0 auto; line-height: 1.8; }
+
         .section { max-width: 1200px; margin: 0 auto; padding: 80px 40px; }
         .section-title { text-align: center; font-size: 26px; font-weight: 300; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 60px; color: #5a5650; }
-        .counter { text-align: center; font-size: 15px; color: #a0988e; margin-bottom: 40px; font-weight: 300; letter-spacing: 1px; }
-        .counter span { font-weight: 500; color: #2d3238; }
         .catalog-section { background-color: #ffffff; padding: 80px 0; }
         .tabs { display: flex; justify-content: center; gap: 40px; margin-bottom: 40px; }
         .tab-btn { background: none; border: none; font-family: 'Montserrat', sans-serif; font-size: 17px; letter-spacing: 2px; text-transform: uppercase; color: #a0988e; cursor: pointer; padding-bottom: 10px; border-bottom: 1px solid transparent; transition: all 0.3s; }
@@ -41,7 +45,6 @@
         .tab-content { display: none; }
         .tab-content.active { display: block; }
 
-        /* MASONRY ГАЛЕРЕЯ — КАК У CARLA GRACE */
         .gallery-masonry { max-width: 1200px; margin: 0 auto; padding: 0 20px; columns: 3; column-gap: 20px; }
         .artwork-card { break-inside: avoid; margin-bottom: 20px; cursor: pointer; transition: transform 0.3s; background: #ffffff; display: block; }
         .artwork-card:hover { transform: translateY(-3px); }
@@ -79,20 +82,15 @@
         .news-card h3 { font-size: 16px; font-weight: 500; margin-bottom: 12px; color: #2d3238; }
         .news-card p { font-size: 14px; color: #7a7670; line-height: 1.6; }
 
-        /* ВЫСТАВКИ */
-        .exhibitions-section { background-color: #ffffff; padding: 80px 0; }
+        .exhibitions-section { background-color: #f2f0ed; padding: 80px 0; }
         .exhibitions-list { max-width: 900px; margin: 0 auto; padding: 0 40px; }
         .exhibition-item { border-bottom: 1px solid #ddd8d2; padding: 20px 0; }
         .exhibition-item:last-child { border-bottom: none; }
         .exhibition-location { font-size: 14px; font-weight: 500; color: #2d3238; margin-bottom: 4px; }
         .exhibition-details { font-size: 14px; color: #7a7670; font-weight: 300; }
-        .exhibition-type { display: inline-block; font-size: 11px; letter-spacing: 1px; text-transform: uppercase; padding: 3px 10px; margin-top: 6px; }
-        .exhibition-type.personal { background: #2d3238; color: #ffffff; }
-        .exhibition-type.group { background: #e5e1db; color: #5a5650; }
         .exhibition-gallery { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-top: 40px; max-width: 900px; margin-left: auto; margin-right: auto; padding: 0 40px; }
         .exhibition-photo { aspect-ratio: 4/3; background: #e5e1db; overflow: hidden; }
         .exhibition-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
-        .exhibition-photo-placeholder { aspect-ratio: 4/3; background: #e5e1db; display: flex; align-items: center; justify-content: center; color: #a0988e; font-size: 13px; text-align: center; padding: 20px; }
 
         .about-block { display: flex; gap: 60px; align-items: center; flex-wrap: wrap; }
         .about-photo { flex: 1; min-width: 250px; aspect-ratio: 3 / 4; background-color: #e5e1db; display: flex; align-items: center; justify-content: center; overflow: hidden; }
@@ -119,6 +117,8 @@
             .nav a { margin: 0; padding: 12px 25px; border-top: 1px solid #f5f2ef; font-size: 14px; }
             .nav a.active::after { display: none; }
             .hero { height: 40vh; }
+            .intro-text { padding: 40px 25px; }
+            .intro-text .quote { font-size: 17px; }
             .gallery-masonry { columns: 2; column-gap: 10px; padding: 0 10px; }
             .artwork-card { margin-bottom: 10px; }
             .news-grid { grid-template-columns: 1fr 1fr; padding: 0 20px; }
@@ -140,26 +140,31 @@
         <nav class="nav" id="nav">
             <a href="#hero" class="active">Главная</a>
             <a href="#catalog">Галерея</a>
-            <a href="#news">Новости</a>
-            <a href="#exhibitions">Выставки</a>
             <a href="#about">Об авторе</a>
+            <a href="#exhibitions">Выставки</a>
+            <a href="#news">Новости</a>
             <a href="#contacts">Контакты</a>
         </nav>
     </header>
 
     <section class="hero fade-in" id="hero"></section>
 
+    <!-- ИНТРО-ТЕКСТ ПОСЛЕ HERO -->
+    <section class="intro-text fade-in">
+        <p class="subtitle">Елена Руленкова — мастер морского пейзажа</p>
+        <p class="quote">«Поднятая ветром морская волна словно проходит сквозь меня, наполняя гармонией, умиротворением, уверенностью, забирая в глубокую пучину при этом все страхи, тревоги и переживания, будто невидимая сила открывает глаза и даёт желание идти вперёд навстречу неведомой цели.»</p>
+    </section>
+
     <section class="catalog-section" id="catalog">
         <div class="section-title fade-in">Галерея</div>
-        <div class="counter fade-in" id="artwork-counter"></div>
         <div class="tabs fade-in" id="tabs-container"></div>
         <div class="filter-bar fade-in" id="filter-bar"></div>
         <div id="gallery-container"></div>
     </section>
 
-    <section class="news-section" id="news">
-        <div class="section-title fade-in">Новости</div>
-        <div class="news-grid fade-in" id="news-container"></div>
+    <section class="section" id="about">
+        <div class="section-title fade-in">Об авторе</div>
+        <div class="about-block fade-in" id="about-container"></div>
     </section>
 
     <section class="exhibitions-section" id="exhibitions">
@@ -168,9 +173,9 @@
         <div class="exhibition-gallery fade-in" id="exhibition-gallery"></div>
     </section>
 
-    <section class="section" id="about">
-        <div class="section-title fade-in">Об авторе</div>
-        <div class="about-block fade-in" id="about-container"></div>
+    <section class="news-section" id="news">
+        <div class="section-title fade-in">Новости</div>
+        <div class="news-grid fade-in" id="news-container"></div>
     </section>
 
     <section class="section" id="contacts">
@@ -270,26 +275,26 @@
                 { date: "Март 2026", title: "Мастер-класс", text: "Провела открытый мастер-класс по масляной живописи для студентов художественного училища." }
             ],
             exhibitions: [
-                { location: 'Санкт-Петербург, гостиница Репинская', title: '«Те, кто честнее нас!»', date: '10.01–04.02.2023', type: 'group' },
-                { location: 'Москва, Центр культуры и спорта', title: '«Вспоминая пленэр 2022»', date: '11.01–29.01.2023', type: 'group' },
-                { location: 'Тверь, книжный магазин Абракнигабра', title: '«Дыхание моря»', date: '08.03–06.06.2023', type: 'personal' },
-                { location: 'Тверь, Городская дума', title: '«Море вдохновения»', date: '27.11–25.12.2023', type: 'personal' },
-                { location: 'Тверь, ОДК Пролетарка', title: '«Дыхание моря»', date: '06.02–29.02.2024', type: 'personal' },
-                { location: 'Тверь, ДК Металлист', title: 'Персональная выставка', date: '01.03–05.05.2024', type: 'personal' },
-                { location: 'Москва, Гостиный двор', title: 'IV Художественно-промышленный выставка-форум «Уникальная Россия»', date: '02.05–12.05.2024', type: 'group' },
-                { location: 'Москва, Гостиный двор', title: 'Юбилейная итоговая художественная выставка «Верность традициям»', date: '02.05–12.05.2024', type: 'group' },
-                { location: 'Москва, Гостиный двор', title: 'Первая международная выставка «75 лет дружбе народов»', date: '02.05–12.05.2024', type: 'group' },
-                { location: 'Санкт-Петербург, «ЦВММ» Минобороны России', title: 'Международный экспозиционный марафон «Ватерлиния»', date: '15.12.2024–20.03.2025', type: 'group' },
-                { location: 'Конаково, ПТЦ «Конаковский фаянс»', title: 'Персональная выставка', date: '20.12.2024–23.01.2025', type: 'personal' },
-                { location: 'Тверь, Тверской городской музейно-выставочный центр', title: 'Международная выставка «Арт-прорыв 2025»', date: '21.02.2025–16.02.2025', type: 'group' },
-                { location: 'Тверь, Музей живописи Валентина Сидорова', title: '«Крымская весна»', date: '18.03.2025–15.04.2025', type: 'group' },
-                { location: 'Санкт-Петербург, Государственный Музей Городской Скульптуры', title: '«QUATRO»', date: '10.04.2025–21.04.2025', type: 'group' },
-                { location: 'Тверь, Музей живописи Валентина Сидорова', title: '«Вдохновленная морем»', date: '17.04.2025–15.05.2025', type: 'personal' },
-                { location: 'Москва, ВДНХ, Морской Арт Клуб', title: '«Россия морская»', date: '08.08.2025–31.12.2025', type: 'group' },
-                { location: 'Санкт-Петербург, Особняк А.П. Брюллова', title: '«Место встречи»', date: '02.10.2025–15.10.2025', type: 'personal' },
-                { location: 'Тверь, книжный магазин Абракнигабра', title: '«Море, масло и цветные карандаши»', date: '05.11–15.12.2025', type: 'personal' },
-                { location: 'Москва, ЦМД «Бабушкинский-2»', title: 'Персональная выставка', date: '12.01–12.03.2026', type: 'personal' },
-                { location: 'Тверь, Тверской городской музейно-выставочный центр', title: 'Международная выставка «Арт-прорыв 2026»', date: '20.02.2026–15.03.2026', type: 'group' }
+                { location: 'Санкт-Петербург, гостиница Репинская', title: '«Те, кто честнее нас!»', date: '10.01–04.02.2023' },
+                { location: 'Москва, Центр культуры и спорта', title: '«Вспоминая пленэр 2022»', date: '11.01–29.01.2023' },
+                { location: 'Тверь, книжный магазин Абракнигабра', title: '«Дыхание моря»', date: '08.03–06.06.2023' },
+                { location: 'Тверь, Городская дума', title: '«Море вдохновения»', date: '27.11–25.12.2023' },
+                { location: 'Тверь, ОДК Пролетарка', title: '«Дыхание моря»', date: '06.02–29.02.2024' },
+                { location: 'Тверь, ДК Металлист', title: 'Персональная выставка', date: '01.03–05.05.2024' },
+                { location: 'Москва, Гостиный двор', title: 'IV Художественно-промышленный выставка-форум «Уникальная Россия»', date: '02.05–12.05.2024' },
+                { location: 'Москва, Гостиный двор', title: 'Юбилейная итоговая художественная выставка «Верность традициям»', date: '02.05–12.05.2024' },
+                { location: 'Москва, Гостиный двор', title: 'Первая международная выставка «75 лет дружбе народов»', date: '02.05–12.05.2024' },
+                { location: 'Санкт-Петербург, «ЦВММ» Минобороны России', title: 'Международный экспозиционный марафон «Ватерлиния»', date: '15.12.2024–20.03.2025' },
+                { location: 'Конаково, ПТЦ «Конаковский фаянс»', title: 'Персональная выставка', date: '20.12.2024–23.01.2025' },
+                { location: 'Тверь, Тверской городской музейно-выставочный центр', title: 'Международная выставка «Арт-прорыв 2025»', date: '21.02.2025–16.02.2025' },
+                { location: 'Тверь, Музей живописи Валентина Сидорова', title: '«Крымская весна»', date: '18.03.2025–15.04.2025' },
+                { location: 'Санкт-Петербург, Государственный Музей Городской Скульптуры', title: '«QUATRO»', date: '10.04.2025–21.04.2025' },
+                { location: 'Тверь, Музей живописи Валентина Сидорова', title: '«Вдохновленная морем»', date: '17.04.2025–15.05.2025' },
+                { location: 'Москва, ВДНХ, Морской Арт Клуб', title: '«Россия морская»', date: '08.08.2025–31.12.2025' },
+                { location: 'Санкт-Петербург, Особняк А.П. Брюллова', title: '«Место встречи»', date: '02.10.2025–15.10.2025' },
+                { location: 'Тверь, книжный магазин Абракнигабра', title: '«Море, масло и цветные карандаши»', date: '05.11–15.12.2025' },
+                { location: 'Москва, ЦМД «Бабушкинский-2»', title: 'Персональная выставка', date: '12.01–12.03.2026' },
+                { location: 'Тверь, Тверской городской музейно-выставочный центр', title: 'Международная выставка «Арт-прорыв 2026»', date: '20.02.2026–15.03.2026' }
             ],
             exhibitionPhotos: [],
             contacts: {
@@ -352,8 +357,7 @@
                 item.className = 'exhibition-item';
                 item.innerHTML =
                     '<div class="exhibition-location">' + ex.location + '</div>' +
-                    '<div class="exhibition-details">' + ex.title + ' — ' + ex.date + '</div>' +
-                    '<span class="exhibition-type ' + ex.type + '">' + (ex.type === 'personal' ? 'Персональная' : 'Групповая') + '</span>';
+                    '<div class="exhibition-details">' + ex.title + ' — ' + ex.date + '</div>';
                 exhibitionsList.appendChild(item);
             });
 
@@ -383,7 +387,6 @@
                 '<button class="contact-btn" onclick="showMasterclassToast()">Мастер-классы</button>';
 
             document.getElementById('footer-container').textContent = SITE_DATA.footer.text;
-            updateCounter();
             setTimeout(checkFadeIn, 100);
         }
 
@@ -419,13 +422,6 @@
                 tabDiv.appendChild(grid);
                 container.appendChild(tabDiv);
             });
-        }
-
-        function updateCounter() {
-            let total = 0;
-            Object.values(SITE_DATA.artworks).forEach(arr => total += arr.length);
-            const word = total % 10 === 1 && total % 100 !== 11 ? 'работа' : total % 10 >= 2 && total % 10 <= 4 && (total % 100 < 10 || total % 100 >= 20) ? 'работы' : 'работ';
-            document.getElementById('artwork-counter').innerHTML = 'В коллекции <span>' + total + '</span> ' + word;
         }
 
         function switchTab(tabId, btn) {
@@ -522,7 +518,7 @@
         const navLinks = document.querySelectorAll('.nav a');
         window.addEventListener('scroll', function() {
             const scrollPos = window.scrollY + 100;
-            const sections = ['hero', 'catalog', 'news', 'exhibitions', 'about', 'contacts'];
+            const sections = ['hero', 'catalog', 'about', 'exhibitions', 'news', 'contacts'];
             let current = 'hero';
             sections.forEach(id => {
                 const section = document.getElementById(id);
