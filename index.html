@@ -13,7 +13,9 @@
         body { font-family: 'Montserrat', sans-serif; background-color: #f2f0ed; color: #2c2c2c; line-height: 1.7; }
         .fade-in { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
         .fade-in.visible { opacity: 1; transform: translateY(0); }
-        .header { background: #ffffff; padding: 25px 60px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; border-bottom: 1px solid #ddd8d2; }
+
+        .header { background: #ffffff; padding: 12px 60px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; border-bottom: 1px solid #ddd8d2; }
+
         .logo { font-size: 28px; font-weight: 300; letter-spacing: 4px; text-transform: uppercase; color: #2d3238; text-decoration: none; }
         .nav { display: flex; align-items: center; }
         .nav a { text-decoration: none; color: #7a7670; margin-left: 40px; font-size: 15px; font-weight: 400; letter-spacing: 1px; text-transform: uppercase; transition: color 0.3s; position: relative; }
@@ -29,7 +31,7 @@
 
         /* ИНТРО-ТЕКСТ */
         .intro-text { background-color: #ffffff; text-align: center; padding: 70px 40px; }
-        .intro-text .artist-name { font-family: 'Cormorant Garamond', serif; font-size: 36px; font-weight: 400; letter-spacing: 3px; color: #2d3238; margin-bottom: 8px; }
+        .intro-text .artist-name { font-family: 'Cormorant Garamond', serif; font-size: 48px; font-weight: 400; letter-spacing: 4px; color: #2d3238; margin-bottom: 8px; }
         .intro-text .artist-subtitle { font-size: 17px; font-weight: 300; font-style: italic; color: #a0988e; margin-bottom: 30px; }
         .intro-text .quote { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 400; font-style: italic; color: #5a5650; max-width: 800px; margin: 0 auto; line-height: 1.7; }
 
@@ -111,7 +113,7 @@
         .toast.show { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0); }
         @media (max-width: 768px) {
             html { font-size: 16px; }
-            .header { padding: 15px 25px; position: relative; }
+            .header { padding: 10px 25px; position: relative; }
             .burger { display: flex; }
             .nav { position: absolute; top: 100%; left: 0; width: 100%; background: #ffffff; flex-direction: column; padding: 0; max-height: 0; overflow: hidden; transition: max-height 0.4s ease, padding 0.4s ease; border-bottom: 1px solid #ddd8d2; }
             .nav.open { max-height: 400px; padding: 10px 0; }
@@ -119,7 +121,7 @@
             .nav a.active::after { display: none; }
             .hero { height: 40vh; }
             .intro-text { padding: 40px 25px; }
-            .intro-text .artist-name { font-size: 28px; }
+            .intro-text .artist-name { font-size: 36px; }
             .intro-text .artist-subtitle { font-size: 15px; }
             .intro-text .quote { font-size: 18px; }
             .gallery-masonry { columns: 2; column-gap: 10px; padding: 0 10px; }
@@ -154,7 +156,7 @@
 
     <section class="intro-text fade-in">
         <p class="artist-name">Елена Руленкова</p>
-        <p class="artist-subtitle">мастер морского пейзажа</p>
+        <p class="artist-subtitle">художник-маринист</p>
         <p class="quote">«Поднятая ветром морская волна словно проходит сквозь меня, наполняя гармонией, умиротворением, уверенностью, забирая в глубокую пучину при этом все страхи, тревоги и переживания, будто невидимая сила открывает глаза и даёт желание идти вперёд навстречу неведомой цели.»</p>
     </section>
 
@@ -252,7 +254,6 @@
                     { title: "Турецкая голубая", material: "Масло, холст", size: "25×35 см", year: "2022", img: "images/images/IMG_4036.jpg" },
                     { title: "Теплая вода", material: "Масло, холст", size: "60×70 см", year: "2025", img: "images/images/IMG_4329.jpg" },
                     { title: "Закат в Анапе", material: "Масло, холст", size: "—", year: "—", img: "images/images/IMG_4411.jpg" },
-                    { title: "ВОЛНЫ ОКЕАНА", material: "Масло, холст", size: "50×70 см", year: "2025", img: "images/images/IMG_4709.jpg" },
                     { title: "НЕБУГ", material: "Масло, холст", size: "20×30 см", year: "2025", img: "images/images/IMG_4832.jpg" },
                     { title: "Морской пейзаж", material: "Масло, холст", size: "—", year: "—", img: "images/images/IMG_4981.jpg" },
                     { title: "Морское серебро", material: "Масло, холст", size: "70×50 см", year: "2023", img: "images/images/IMG_5341.jpg" },
