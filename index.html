@@ -29,7 +29,6 @@
         .hero { width: 100%; height: 70vh; background-color: #e5e1db; display: flex; align-items: center; justify-content: center; overflow: hidden; position: relative; }
         .hero img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
-        /* ИНТРО-ТЕКСТ */
         .intro-text { background-color: #ffffff; text-align: center; padding: 70px 40px; }
         .intro-text .artist-name { font-family: 'Cormorant Garamond', serif; font-size: 48px; font-weight: 400; letter-spacing: 4px; color: #2d3238; margin-bottom: 8px; }
         .intro-text .artist-subtitle { font-size: 17px; font-weight: 300; font-style: italic; color: #a0988e; margin-bottom: 30px; }
@@ -51,11 +50,8 @@
         .gallery-masonry { max-width: 1200px; margin: 0 auto; padding: 0 20px; columns: 3; column-gap: 20px; }
         .artwork-card { break-inside: avoid; margin-bottom: 20px; cursor: pointer; transition: transform 0.3s; background: #ffffff; display: block; }
         .artwork-card:hover { transform: translateY(-3px); }
-        .artwork-image { width: 100%; background-color: #e5e1db; display: flex; align-items: center; justify-content: center; overflow: hidden; margin-bottom: 12px; }
+        .artwork-image { width: 100%; background-color: #e5e1db; display: flex; align-items: center; justify-content: center; overflow: hidden; }
         .artwork-image img { width: 100%; height: auto; display: block; }
-        .artwork-info { text-align: center; padding-bottom: 5px; }
-        .artwork-info h4 { font-size: 15px; font-weight: 400; margin-bottom: 4px; color: #2d3238; }
-        .artwork-info p { font-size: 13px; color: #a0988e; font-weight: 300; }
         .no-results { text-align: center; color: #a0988e; padding: 40px; font-style: italic; }
 
         .popup-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 999; align-items: center; justify-content: center; }
@@ -412,9 +408,7 @@
                     const card = document.createElement('div');
                     card.className = 'artwork-card';
                     card.onclick = function() { openPopup(tab.id, index); };
-                    card.innerHTML =
-                        '<div class="artwork-image"><img src="' + artwork.img + '" alt="' + artwork.title + '" loading="lazy"></div>' +
-                        '<div class="artwork-info"><h4>' + artwork.title + '</h4><p>' + artwork.material + ' / ' + artwork.size + ' / ' + artwork.year + '</p></div>';
+                    card.innerHTML = '<div class="artwork-image"><img src="' + artwork.img + '" alt="' + artwork.title + '" loading="lazy"></div>';
                     grid.appendChild(card);
                 });
                 if (!hasResults) {
