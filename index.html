@@ -71,6 +71,7 @@
         .popup-details .meta li strong { font-weight: 500; color: #2d3238; }
         .btn-price { display: inline-block; background: #2d3238; color: #ffffff; text-decoration: none; padding: 14px 30px; font-size: 14px; letter-spacing: 2px; text-transform: uppercase; text-align: center; transition: background 0.3s; border: none; cursor: pointer; }
         .btn-price:hover { background: #4a5058; }
+        .btn-not-for-sale { display: inline-block; background: #dde0e3; color: #7a8088; padding: 14px 30px; font-size: 14px; letter-spacing: 2px; text-transform: uppercase; text-align: center; cursor: default; }
 
         .news-section { background-color: #ffffff; padding: 80px 0; }
         .news-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; max-width: 1200px; margin: 0 auto; padding: 0 40px; }
@@ -204,7 +205,7 @@
                     <li><strong>Размер:</strong> <span id="popup-size">—</span></li>
                     <li><strong>Год:</strong> <span id="popup-year">—</span></li>
                 </ul>
-                <a href="#" class="btn-price" id="popup-link" target="_blank">Узнать цену</a>
+                <span id="popup-action-container"></span>
             </div>
         </div>
     </div>
@@ -247,45 +248,48 @@
             artworks: {
                 themes: [
                     { title: "РАСВЕТ", material: "Масло, холст", size: "60×70 см", year: "2024", img: "images/images/1D022A90-C5B6-43AE-9C30-E520A05452BA.jpg" },
-                    { title: "Воспоминания о тёплом и ласковом океане", material: "Масло, холст", size: "50×70 см", year: "2022", img: "images/images/DF42944E-8F36-4B4C-AF9B-41E2A57368BC.jpg" },
+                    { title: "Воспоминания о тёплом и ласковом океане", material: "Масло, холст", size: "50×70 см", year: "2022", img: "images/images/DF42944E-8F36-4B4C-AF9B-41E2A57368BC.jpg", forSale: false },
                     { title: "Морская волна", material: "Масло, холст", size: "78×210 см", year: "2023", img: "images/images/IMG_0009.jpg" },
                     { title: "РАСВЕТ", material: "Масло, холст", size: "60×70 см", year: "2024", img: "images/images/IMG_0231.jpg" },
-                    { title: "Яркий день", material: "Масло, холст", size: "50×60 см", year: "2023", img: "images/images/IMG_0259.jpg" },
-                    { title: "НА БЕРЕГУ АЗОВСКОГО МОРЯ", material: "Масло, холст", size: "80×100 см", year: "2025", img: "images/images/IMG_0445.jpg" },
-                    { title: "Дождик над рифом", material: "Масло, холст", size: "60×90 см", year: "2021", img: "images/images/IMG_1124.jpg" },
-                    { title: "Рассвет", material: "Масло, холст", size: "50×60 см", year: "2022", img: "images/images/IMG_2752.jpg" },
+                    { title: "Яркий день", material: "Масло, холст", size: "50×60 см", year: "2023", img: "images/images/IMG_0259.jpg", forSale: false },
+                    { title: "НА БЕРЕГУ АЗОВСКОГО МОРЯ", material: "Масло, холст", size: "80×100 см", year: "2025", img: "images/images/IMG_0445.jpg", forSale: false },
+                    { title: "Дождик над рифом", material: "Масло, холст", size: "60×90 см", year: "2021", img: "images/images/IMG_1124.jpg", forSale: false },
+                    { title: "Рассвет", material: "Масло, холст", size: "50×60 см", year: "2022", img: "images/images/IMG_2752.jpg", forSale: false },
                     { title: "ОБЛАКА НАД АТЛАНТИЧЕСКИМ ОКЕАНОМ", material: "Масло, холст", size: "60×70 см", year: "2024", img: "images/images/IMG_3126.jpg" },
-                    { title: "Турецкая голубая", material: "Масло, холст", size: "25×35 см", year: "2022", img: "images/images/IMG_3272.jpg" },
+                    { title: "Турецкая голубая", material: "Масло, холст", size: "25×35 см", year: "2022", img: "images/images/IMG_3272.jpg", forSale: false },
                     { title: "БЫЛИНЫ АЗОВСКОГО МОРЯ", material: "Масло, холст", size: "70×90 см", year: "2023", img: "images/images/IMG_3550.jpg" },
                     { title: "Пляж Баваро", material: "Масло, холст", size: "—", year: "2022", img: "images/images/IMG_3621.jpg" },
-                    { title: "Турецкая голубая", material: "Масло, холст", size: "25×35 см", year: "2022", img: "images/images/IMG_4036.jpg" },
+                    { title: "Турецкая голубая", material: "Масло, холст", size: "25×35 см", year: "2022", img: "images/images/IMG_4036.jpg", forSale: false },
                     { title: "Теплая вода", material: "Масло, холст", size: "60×70 см", year: "2025", img: "images/images/IMG_4329.jpg" },
-                    { title: "Закат в Анапе", material: "Масло, холст", size: "—", year: "—", img: "images/images/IMG_4411.jpg" },
-                    { title: "НЕБУГ", material: "Масло, холст", size: "20×30 см", year: "2025", img: "images/images/IMG_4832.jpg" },
+                    { title: "Закат в Анапе", material: "Масло, холст", size: "—", year: "—", img: "images/images/IMG_4411.jpg", forSale: false },
+                    { title: "НЕБУГ", material: "Масло, холст", size: "20×30 см", year: "2025", img: "images/images/IMG_4832.jpg", forSale: false },
                     { title: "Морской пейзаж", material: "Масло, холст", size: "—", year: "—", img: "images/images/IMG_4981.jpg" },
                     { title: "Морское серебро", material: "Масло, холст", size: "70×50 см", year: "2023", img: "images/images/IMG_5341.jpg" },
                     { title: "Чёрное море в октябре", material: "Масло, холст", size: "160×110 см", year: "2025", img: "images/images/IMG_5820.jpg" },
                     { title: "В лучах уходящего солнца", material: "Масло, холст", size: "90×70 см", year: "2022", img: "images/images/IMG_6576.jpg" },
-                    { title: "ИМЕРЕТИНСКАЯ ВОЛНА", material: "Масло, холст", size: "25×35 см", year: "2025", img: "images/images/IMG_6730.jpg" },
+                    { title: "ИМЕРЕТИНСКАЯ ВОЛНА", material: "Масло, холст", size: "25×35 см", year: "2025", img: "images/images/IMG_6730.jpg", forSale: false },
                     { title: "ВОЛНЫ ОКЕАНА", material: "Масло, холст", size: "50×70 см", year: "2025", img: "images/images/IMG_7386.jpg" },
-                    { title: "После завтрака в океан", material: "Масло, холст", size: "50×70 см", year: "2022", img: "images/images/IMG_7588.jpg" },
-                    { title: "Воспоминания о тёплом и ласковом океане", material: "Масло, холст", size: "50×70 см", year: "2022", img: "images/images/IMG_7852.jpg" },
+                    { title: "После завтрака в океан", material: "Масло, холст", size: "50×70 см", year: "2022", img: "images/images/IMG_7588.jpg", forSale: false },
+                    { title: "Воспоминания о тёплом и ласковом океане", material: "Масло, холст", size: "50×70 см", year: "2022", img: "images/images/IMG_7852.jpg", forSale: false },
                     { title: "Пасмурный день", material: "Масло, холст", size: "60×80 см", year: "2022", img: "images/images/IMG_7829 2.jpeg" },
-                    { title: "Закат в Голубицкой", material: "Масло, холст", size: "20×30 см", year: "2024", img: "images/images/IMG_8311.jpg" },
+                    { title: "Закат в Голубицкой", material: "Масло, холст", size: "20×30 см", year: "2024", img: "images/images/IMG_8311.jpg", forSale: false },
                     { title: "Изумруд", material: "Масло, холст", size: "60×80 см", year: "2023", img: "images/images/IMG_8534.jpg" },
                     { title: "АЗОВСКОЕ МОРЕ", material: "Масло, холст", size: "20×40 см", year: "2024", img: "images/images/IMG_9533.jpg" },
                     { title: "ПОРТРЕТ ОДНОГО КИТА", material: "Масло, бумага для масла", size: "18×24 см", year: "2022", img: "images/images/IMG_4045.jpg" },
                     { title: "Игры на солнце", material: "Масло, холст на картоне", size: "30×40 см", year: "2026", img: "images/images/IMG_2923 2.jpeg" },
-                    { title: "Свободные дельфины. Семья", material: "Масло, холст", size: "75×105 см", year: "2022", img: "images/images/IMG_3976 2.jpeg", note: "В частной коллекции" }
+                    { title: "Свободные дельфины. Семья", material: "Масло, холст", size: "75×105 см", year: "2022", img: "images/images/IMG_3976 2.jpeg", note: "В частной коллекции", forSale: false }
                 ],
                 etudes: [
-                    { title: "Этюд на Академической даче им. И.Е. Репина", material: "Холст, масло", size: "30×40 см", year: "2022", img: "images/images/IMG_0835.jpeg" },
-                    { title: "Этюд на Академической даче им. И.Е. Репина", material: "Холст, масло", size: "30×40 см", year: "2022", img: "images/images/IMG_7030.jpeg" },
+                    { title: "Этюд на Академической даче им. И.Е. Репина", material: "Холст, масло", size: "30×40 см", year: "2022", img: "images/images/IMG_0835.jpeg", forSale: false },
+                    { title: "Этюд на Академической даче им. И.Е. Репина", material: "Холст, масло", size: "30×40 см", year: "2022", img: "images/images/IMG_7030.jpeg", forSale: false },
                     { title: "Этюд", material: "—", size: "—", year: "—", img: "images/images/IMG_7091.jpeg" },
                     { title: "Этюд на р. Орша", material: "Холст на картоне, масло", size: "30×40 см", year: "2022", img: "images/images/IMG_7318.jpeg" },
                     { title: "ЭТЮД В УСАДЬБЕ", material: "Масло, холст", size: "25×35 см", year: "2022", img: "images/images/IMG_7415.jpeg" },
-                    { title: "ЭТЮД. П. УМБА", material: "Масло, холст на картоне", size: "30×40 см", year: "2025", img: "images/images/IMG_9873.jpeg" },
-                    { title: "Ели у дома", material: "Масло, холст", size: "30×40 см", year: "2026", img: "images/images/IMG_3893.jpeg" }
+                    { title: "ЭТЮД. П. УМБА", material: "Масло, холст на картоне", size: "30×40 см", year: "2025", img: "images/images/IMG_9873.jpeg", forSale: false },
+                    { title: "Ели у дома", material: "Масло, холст", size: "30×40 см", year: "2026", img: "images/images/IMG_3893.jpeg" },
+                    { title: "Этюд", material: "—", size: "—", year: "—", img: "images/images/IMG_5600 2.png" },
+                    { title: "Этюд", material: "—", size: "—", year: "—", img: "images/images/IMG_5599 2.png" },
+                    { title: "Этюд", material: "—", size: "—", year: "—", img: "images/images/IMG_5598 2.png" }
                 ],
                 graphics: [
                     { title: "Графика", material: "—", size: "—", year: "—", img: "images/images/IMG_7875.jpeg" },
@@ -503,12 +507,18 @@
             document.getElementById('popup-title').textContent = artwork.title;
             document.getElementById('popup-material').textContent = artwork.material;
             document.getElementById('popup-size').textContent = artwork.size;
-            document.getElementById('popup-year').textContent = artwork.year;
-            if (artwork.note) {
-                document.getElementById('popup-year').textContent = artwork.year + ' — ' + artwork.note;
+            
+            let yearText = artwork.year;
+            if (artwork.note) yearText += ' — ' + artwork.note;
+            document.getElementById('popup-year').textContent = yearText;
+
+            const actionContainer = document.getElementById('popup-action-container');
+            if (artwork.forSale === false) {
+                actionContainer.innerHTML = '<span class="btn-not-for-sale">Нельзя купить</span>';
+            } else {
+                const message = encodeURIComponent('Здравствуйте, ' + SITE_DATA.artist.firstName + '! Интересует картина «' + artwork.title + '».');
+                actionContainer.innerHTML = '<a href="https://t.me/' + SITE_DATA.contacts.telegram + '?text=' + message + '" class="btn-price" target="_blank">Узнать цену</a>';
             }
-            const message = encodeURIComponent('Здравствуйте, ' + SITE_DATA.artist.firstName + '! Интересует картина «' + artwork.title + '».');
-            document.getElementById('popup-link').href = 'https://t.me/' + SITE_DATA.contacts.telegram + '?text=' + message;
         }
 
         function updatePopupArrows() {
