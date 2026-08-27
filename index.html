@@ -214,11 +214,18 @@
     <a href="#hero" class="scroll-top" id="scroll-top" aria-label="Наверх">↑</a>
 
     <script>
-        const SITE_DATA = {
+        // ========== ССЫЛКИ НА GOOGLE ТАБЛИЦЫ ==========
+        const SHEETS = {
+            paintings: "https://docs.google.com/spreadsheets/d/e/2PACX-1vTcQjZP9CdtaqcrVMRXJMzZo4oVTgDpQv2ldCTcGRhrjt9qpZW9Q3VRaGVpXwWBxrGb9kfi2aoegVu9/pub?gid=0&single=true&output=csv",
+            news: "https://docs.google.com/spreadsheets/d/e/2PACX-1vTcQjZP9CdtaqcrVMRXJMzZo4oVTgDpQv2ldCTcGRhrjt9qpZW9Q3VRaGVpXwWBxrGb9kfi2aoegVu9/pub?gid=1974215602&single=true&output=csv",
+            exhibitions: "https://docs.google.com/spreadsheets/d/e/2PACX-1vTcQjZP9CdtaqcrVMRXJMzZo4oVTgDpQv2ldCTcGRhrjt9qpZW9Q3VRaGVpXwWBxrGb9kfi2aoegVu9/pub?gid=451566870&single=true&output=csv"
+        };
+
+        // ========== РЕЗЕРВНЫЕ ДАННЫЕ (если таблица пустая) ==========
+        const FALLBACK_DATA = {
             artist: {
                 firstName: "Елена",
                 lastName: "Руленкова",
-                city: "Тверь",
                 photo: "images/images/image-06-05-26-09-54.webp",
                 memberships: [
                     "Член Морского Арт клуба",
@@ -233,18 +240,8 @@
             },
             hero: {
                 img: "images/images/20261.jpg",
-                alt: "Морской пейзаж",
-                caption: "МОРСКОЙ ПЕЙЗАЖ"
+                alt: "Морской пейзаж"
             },
-            filters: {
-                years: ["Все годы", "2026", "2025", "2024", "2023", "2022", "2021"],
-                materials: ["Все материалы", "Масло, холст", "Масло, холст на картоне", "Масло, бумага для масла"]
-            },
-            tabs: [
-                { id: "themes", label: "Морской пейзаж" },
-                { id: "etudes", label: "Этюды" },
-                { id: "graphics", label: "Графика" }
-            ],
             artworks: {
                 themes: [
                     { title: "РАСВЕТ", material: "Масло, холст", size: "60×70 см", year: "2024", img: "images/images/1D022A90-C5B6-43AE-9C30-E520A05452BA.jpg" },
@@ -343,20 +340,155 @@
                 social: "https://vk.ru/rulenkova_elena_hudoznik",
                 socialLabel: "ВКонтакте"
             },
-            footer: {
-                text: "© 2026 Rulenkova Art. Все права защищены."
-            }
+            footer: "© 2026 Rulenkova Art. Все права защищены."
         };
 
+        // ========== СОСТОЯНИЕ ==========
+        let SITE_DATA = JSON.parse(JSON.stringify(FALLBACK_DATA));
         let currentPopupCategory = null;
         let currentPopupIndex = null;
         let activeFilters = { year: "Все годы", material: "Все материалы" };
 
+        // ========== ЗАГРУЗКА ДАННЫХ ИЗ GOOGLE ТАБЛИЦ ==========
+        async function fetchCSV(url) {
+            try {
+                const response = await fetch(url);
+                if (!response.ok) return null;
+                const text = await response.text();
+                return text;
+            } catch (e) {
+                return null;
+            }
+        }
+
+        function parseCSV(text) {
+            if (!text) return [];
+            const rows = [];
+            let current = '';
+            let inQuotes = false;
+            
+            for (let i = 0; i < text.length; i++) {
+                const char = text[i];
+                if (char === '"') {
+                    inQuotes = !inQuotes;
+                } else if (char === ',' && !inQuotes) {
+                    current += '|';
+                } else if (char === '\n' && !inQuotes) {
+                    rows.push(current.split('|'));
+                    current = '';
+                } else {
+                    current += char;
+                }
+            }
+            if (current) rows.push(current.split('|'));
+            
+            // Убираем пустые строки и строку с заголовками
+            return rows.filter(row => row.some(cell => cell.trim() !== ''));
+        }
+
+        function parsePaintings(rows) {
+            const result = { themes: [], etudes: [], graphics: [] };
+            // Пропускаем заголовки (первая строка)
+            for (let i = 1; i < rows.length; i++) {
+                const row = rows[i];
+                if (row.length < 7) continue;
+                const [title, material, size, year, img, section, button] = row;
+                if (!title || !img) continue;
+                
+                const artwork = {
+                    title: title.trim(),
+                    material: material.trim() || '—',
+                    size: size.trim() || '—',
+                    year: year.trim() || '—',
+                    img: img.trim(),
+                    forSale: button.trim() === 'Нельзя купить' ? false : true
+                };
+                
+                const sectionKey = section.trim().toLowerCase();
+                if (sectionKey === 'морской пейзаж' || sectionKey === 'themes') {
+                    result.themes.push(artwork);
+                } else if (sectionKey === 'этюды' || sectionKey === 'etudes') {
+                    result.etudes.push(artwork);
+                } else if (sectionKey === 'графика' || sectionKey === 'graphics') {
+                    result.graphics.push(artwork);
+                }
+            }
+            return result;
+        }
+
+        function parseNews(rows) {
+            const result = [];
+            for (let i = 1; i < rows.length; i++) {
+                const row = rows[i];
+                if (row.length < 3) continue;
+                const [date, title, text] = row;
+                if (!title || !text) continue;
+                result.push({ date: date.trim(), title: title.trim(), text: text.trim() });
+            }
+            return result;
+        }
+
+        function parseExhibitions(rows) {
+            const result = [];
+            for (let i = 1; i < rows.length; i++) {
+                const row = rows[i];
+                if (row.length < 3) continue;
+                const [location, title, date] = row;
+                if (!location || !title) continue;
+                result.push({ location: location.trim(), title: title.trim(), date: date.trim() });
+            }
+            return result;
+        }
+
+        async function loadData() {
+            // Загружаем картины
+            const paintingsCSV = await fetchCSV(SHEETS.paintings);
+            if (paintingsCSV) {
+                const rows = parseCSV(paintingsCSV);
+                if (rows.length > 1) {
+                    const parsed = parsePaintings(rows);
+                    const hasData = parsed.themes.length > 0 || parsed.etudes.length > 0 || parsed.graphics.length > 0;
+                    if (hasData) {
+                        SITE_DATA.artworks = parsed;
+                    }
+                }
+            }
+            
+            // Загружаем новости
+            const newsCSV = await fetchCSV(SHEETS.news);
+            if (newsCSV) {
+                const rows = parseCSV(newsCSV);
+                if (rows.length > 1) {
+                    const parsed = parseNews(rows);
+                    if (parsed.length > 0) SITE_DATA.news = parsed;
+                }
+            }
+            
+            // Загружаем выставки
+            const exhibitionsCSV = await fetchCSV(SHEETS.exhibitions);
+            if (exhibitionsCSV) {
+                const rows = parseCSV(exhibitionsCSV);
+                if (rows.length > 1) {
+                    const parsed = parseExhibitions(rows);
+                    if (parsed.length > 0) SITE_DATA.exhibitions = parsed;
+                }
+            }
+            
+            buildSite();
+        }
+
+        // ========== ПОСТРОЕНИЕ САЙТА ==========
         function buildSite() {
             document.getElementById('hero').innerHTML = '<img src="' + SITE_DATA.hero.img + '" alt="' + SITE_DATA.hero.alt + '">';
 
             const tabsContainer = document.getElementById('tabs-container');
-            SITE_DATA.tabs.forEach((tab, i) => {
+            tabsContainer.innerHTML = '';
+            const tabs = [
+                { id: "themes", label: "Морской пейзаж" },
+                { id: "etudes", label: "Этюды" },
+                { id: "graphics", label: "Графика" }
+            ];
+            tabs.forEach((tab, i) => {
                 const btn = document.createElement('button');
                 btn.className = 'tab-btn' + (i === 0 ? ' active' : '');
                 btn.textContent = tab.label;
@@ -366,25 +498,21 @@
             });
 
             const filterBar = document.getElementById('filter-bar');
-            SITE_DATA.filters.years.forEach(year => {
+            filterBar.innerHTML = '';
+            const years = ["Все годы", "2026", "2025", "2024", "2023", "2022", "2021"];
+            years.forEach(year => {
                 const btn = document.createElement('button');
                 btn.className = 'filter-btn' + (year === 'Все годы' ? ' active' : '');
                 btn.textContent = year;
                 btn.onclick = function() { setFilter('year', year, this); };
                 filterBar.appendChild(btn);
             });
-            SITE_DATA.filters.materials.forEach(mat => {
-                const btn = document.createElement('button');
-                btn.className = 'filter-btn' + (mat === 'Все материалы' ? ' active' : '');
-                btn.textContent = mat;
-                btn.onclick = function() { setFilter('material', mat, this); };
-                filterBar.appendChild(btn);
-            });
 
             renderGallery();
 
             const newsContainer = document.getElementById('news-container');
-            SITE_DATA.news.forEach(n => {
+            newsContainer.innerHTML = '';
+            (SITE_DATA.news || []).forEach(n => {
                 const card = document.createElement('div');
                 card.className = 'news-card';
                 card.innerHTML = '<div class="news-date">' + n.date + '</div><h3>' + n.title + '</h3><p>' + n.text + '</p>';
@@ -392,7 +520,8 @@
             });
 
             const exhibitionsList = document.getElementById('exhibitions-list');
-            SITE_DATA.exhibitions.forEach(ex => {
+            exhibitionsList.innerHTML = '';
+            (SITE_DATA.exhibitions || []).forEach(ex => {
                 const item = document.createElement('div');
                 item.className = 'exhibition-item';
                 item.innerHTML =
@@ -402,7 +531,9 @@
             });
 
             const exhibitionGallery = document.getElementById('exhibition-gallery');
-            if (SITE_DATA.exhibitionPhotos.length > 0) {
+            if (SITE_DATA.exhibitionPhotos && SITE_DATA.exhibitionPhotos.length > 0) {
+                exhibitionGallery.innerHTML = '';
+                exhibitionGallery.style.display = 'grid';
                 SITE_DATA.exhibitionPhotos.forEach(photo => {
                     const photoDiv = document.createElement('div');
                     photoDiv.className = 'exhibition-photo';
@@ -415,9 +546,9 @@
 
             const aboutContainer = document.getElementById('about-container');
             let membershipsHTML = '';
-            SITE_DATA.artist.memberships.forEach(m => { membershipsHTML += '<p>' + m + '</p>'; });
+            (SITE_DATA.artist.memberships || []).forEach(m => { membershipsHTML += '<p>' + m + '</p>'; });
             let storyHTML = '';
-            SITE_DATA.artist.story.forEach(p => { storyHTML += '<p>' + p + '</p>'; });
+            (SITE_DATA.artist.story || []).forEach(p => { storyHTML += '<p>' + p + '</p>'; });
             aboutContainer.innerHTML =
                 '<div class="about-photo"><img src="' + SITE_DATA.artist.photo + '" alt="' + SITE_DATA.artist.firstName + ' ' + SITE_DATA.artist.lastName + '" loading="lazy"></div>' +
                 '<div class="about-text">' +
@@ -432,14 +563,19 @@
                 '<a href="' + SITE_DATA.contacts.social + '" class="contact-btn" target="_blank" rel="noopener">' + SITE_DATA.contacts.socialLabel + '</a>' +
                 '<button class="contact-btn" onclick="showMasterclassToast()">Мастер-классы</button>';
 
-            document.getElementById('footer-container').textContent = SITE_DATA.footer.text;
+            document.getElementById('footer-container').textContent = SITE_DATA.footer;
             setTimeout(checkFadeIn, 100);
         }
 
         function renderGallery() {
             const container = document.getElementById('gallery-container');
             container.innerHTML = '';
-            SITE_DATA.tabs.forEach((tab, tabIndex) => {
+            const tabs = [
+                { id: "themes", label: "Морской пейзаж" },
+                { id: "etudes", label: "Этюды" },
+                { id: "graphics", label: "Графика" }
+            ];
+            tabs.forEach((tab, tabIndex) => {
                 const tabDiv = document.createElement('div');
                 tabDiv.className = 'tab-content' + (tabIndex === 0 ? ' active' : '');
                 tabDiv.id = 'tab-' + tab.id;
@@ -449,7 +585,6 @@
                 const artworks = SITE_DATA.artworks[tab.id] || [];
                 artworks.forEach((artwork, index) => {
                     if (activeFilters.year !== 'Все годы' && artwork.year !== activeFilters.year) return;
-                    if (activeFilters.material !== 'Все материалы' && artwork.material !== activeFilters.material) return;
                     hasResults = true;
                     const card = document.createElement('div');
                     card.className = 'artwork-card';
@@ -460,7 +595,7 @@
                 if (!hasResults) {
                     const noRes = document.createElement('div');
                     noRes.className = 'no-results';
-                    noRes.textContent = 'Нет работ, соответствующих фильтру';
+                    noRes.textContent = 'Нет работ';
                     grid.appendChild(noRes);
                 }
                 tabDiv.appendChild(grid);
@@ -481,12 +616,7 @@
             activeFilters[type] = value;
             const filterBar = document.getElementById('filter-bar');
             const allBtns = filterBar.querySelectorAll('.filter-btn');
-            const yearsCount = SITE_DATA.filters.years.length;
-            if (type === 'year') {
-                allBtns.forEach((b, i) => { if (i < yearsCount) b.classList.toggle('active', b.textContent === value); });
-            } else {
-                allBtns.forEach((b, i) => { if (i >= yearsCount) b.classList.toggle('active', b.textContent === value); });
-            }
+            allBtns.forEach(b => { b.classList.toggle('active', b.textContent === value); });
             renderGallery();
             setTimeout(checkFadeIn, 50);
         }
@@ -507,10 +637,11 @@
             document.getElementById('popup-title').textContent = artwork.title;
             document.getElementById('popup-material').textContent = artwork.material;
             document.getElementById('popup-size').textContent = artwork.size;
+            document.getElementById('popup-year').textContent = artwork.year;
             
-            let yearText = artwork.year;
-            if (artwork.note) yearText += ' — ' + artwork.note;
-            document.getElementById('popup-year').textContent = yearText;
+            if (artwork.note) {
+                document.getElementById('popup-year').textContent = artwork.year + ' — ' + artwork.note;
+            }
 
             const actionContainer = document.getElementById('popup-action-container');
             if (artwork.forSale === false) {
@@ -599,7 +730,8 @@
             setTimeout(() => toast.classList.remove('show'), 3000);
         }
 
-        buildSite();
+        // Загружаем данные и строим сайт
+        loadData();
     </script>
 
 </body>
