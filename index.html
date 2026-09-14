@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rulenkova Art</title>
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="favicon.svg">
+    <meta name="theme-color" content="#3d6578">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,300;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -386,6 +389,15 @@
             return rows.filter(row => row.some(cell => cell.trim() !== ''));
         }
 
+        function convertImageUrl(url) {
+            url = (url || '').trim();
+            const fileMatch = url.match(/\/d\/([a-zA-Z0-9_-]+)/);
+            const idMatch = url.match(/[?&]id=([a-zA-Z0-9_-]+)/);
+            const id = (fileMatch && fileMatch[1]) || (idMatch && idMatch[1]);
+            if (id) return 'https://lh3.googleusercontent.com/d/' + id;
+            return url;
+        }
+
         function parsePaintings(rows) {
             const result = { themes: [], etudes: [], graphics: [] };
             // Пропускаем заголовки (первая строка)
@@ -400,7 +412,7 @@
                     material: material.trim() || '—',
                     size: size.trim() || '—',
                     year: year.trim() || '—',
-                    img: img.trim(),
+                    img: convertImageUrl(img),
                     forSale: button.trim() === 'Нельзя купить' ? false : true
                 };
                 
